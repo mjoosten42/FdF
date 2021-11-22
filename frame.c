@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 12:31:59 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/22 14:31:10 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/22 16:22:34 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ int	ft_create_frame(t_frame *frame, char *file)
 	if (ft_get_heigth(frame, fd))
 		return (2);
 	close(fd);
-	if (!(frame->width || frame->height))
-		return (3);
 	fd = open(file, O_RDONLY);
-	ret = ft_file_to_points(fd, frame);
+	ret = ft_file_to_points(frame, fd);
 	close(fd);
 	if (ret)
 		return (4);
@@ -73,7 +71,7 @@ int	ft_get_heigth(t_frame *frame, int fd)
 	return (0);
 }
 
-int	ft_file_to_points(int fd, t_frame *frame)
+int	ft_file_to_points(t_frame *frame, int fd)
 {
 	char	*str;
 	int		i;

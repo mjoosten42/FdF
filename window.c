@@ -12,8 +12,6 @@
 
 #include "fdf.h"
 
-#define ESC 53
-
 int	ft_create_window(t_window *window)
 {
 	window->mlx = mlx_init();

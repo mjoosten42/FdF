@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/22 14:32:52 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/22 16:33:17 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@
 # define WHITE 0x00FFFFFF
 
 # define ESC 53
-
-typedef struct s_camera
-{
-	int	x;
-	int	y;
-	int	z;
-}		t_camera;
 
 typedef struct s_frame
 {
@@ -53,12 +46,12 @@ int		ft_hooks(t_window *window);
 int		ft_key_hook(int keycode, t_window *window);
 int		ft_close(t_window *window);
 
-void	ft_set_camera(t_camera *camera, int x, int y, int z);
-
 int		ft_create_frame(t_frame *frame, char *file);
 int		ft_get_width(t_frame *frame, int fd);
 int		ft_get_heigth(t_frame *frame, int fd);
-int		ft_file_to_points(int fd, t_frame *frame);
+int		ft_file_to_points(t_frame *frame, int fd);
 int		ft_str_to_points(char *str, t_frame *frame, int row);
+
+void	ft_error(void);
 
 #endif
