@@ -44,6 +44,7 @@ SRC = 	ft_isalpha.c		\
 		ft_putnbr_fd.c		\
 							\
 		ft_get_next_line.c	\
+		ft_free_strs.c		\
 
 OBJ = $(SRC:.c=.o)
 
@@ -53,7 +54,7 @@ $(NAME): $(OBJ)
 
 %.o : %.c
 	$(CC) $(FLAGS) $^
-	ar  -rs   $(NAME) $@
+	ar  -crs  $(NAME) $@
 
 clean:
 	rm -f $(OBJ) $(BONUS_OBJ)

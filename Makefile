@@ -1,10 +1,14 @@
 NAME = fdf
 FLAGS = -Wall -Werror -Wextra
-SRC = main.c hooks.c image.c
+SRC = main.c window.c frame.c camera.c
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
+FILE = 42
+
 all: $(NAME)
+	./$(NAME) maps/$(FILE).fdf
+	@rm -f $(NAME)
 
 $(NAME): $(SRC) $(LIBFT) $(MLX)
 	gcc $(FLAGS) -o $(NAME) $(SRC) $(LIBFT) $(MLX) -framework OpenGL -framework AppKit
@@ -24,8 +28,4 @@ fclean: clean
 
 re: fclean all
 
-test: $(NAME)
-	./$(NAME) maps/42.fdf
-	@rm -f $(NAME)
-
-.PHONY = clean, fclean, re, test
+.PHONY = clean, fclean, re
