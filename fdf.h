@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/22 16:33:17 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:20:33 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 # define DISPLAY_X 1080
 # define DISPLAY_Y 720
+# define DISPLAY_M 389340 // (DISPLAY_Y + 1) * DISPLAY_X / 2
+# define RATIO 3720
 
 # define WHITE 0x00FFFFFF
 
@@ -32,6 +34,14 @@ typedef struct s_frame
 	int	height;
 	int	width;
 }		t_frame;
+
+typedef struct s_camera
+{
+	int		x;
+	int		y;
+	int		z;
+	float	focus;
+}			t_camera;
 
 typedef struct s_window
 {
@@ -52,6 +62,7 @@ int		ft_get_heigth(t_frame *frame, int fd);
 int		ft_file_to_points(t_frame *frame, int fd);
 int		ft_str_to_points(char *str, t_frame *frame, int row);
 
+int		ft_frame_to_image(t_frame *frame, int *buffer);
 void	ft_error(void);
 
 #endif

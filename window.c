@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:01:09 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/22 13:36:57 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/23 11:47:30 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_create_window(t_window *window)
 	window->mlx = mlx_init();
 	if (!window->mlx)
 		return (1);
-	window->win = mlx_new_window(window->mlx, DISPLAY_X, DISPLAY_Y, "fdf");
+	window->win = mlx_new_window(window->mlx, DISPLAY_X, DISPLAY_Y, "FdF");
 	if (!window->win)
 		return (2);
 	mlx_hook(window->win, 17, 0L, ft_close, window);
