@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/23 13:59:06 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:38:59 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,42 @@ void	ft_error(void)
 	exit(1);
 }
 
+int	ft_get_scale(t_frame *frame);
+
 int	ft_frame_to_image(t_frame *frame, int *buffer)
 {
 	int	i;
 	int	j;
-	int	height;
+	int	offset;
+	int	scale;
 
-	int middle = (DISPLAY_Y + 1) * DISPLAY_X / 2;
-	int	offset = middle - 64 * (frame->height + 1) * frame->width / 2;
-	
+	scale = ft_get_scale(frame) / 8;
+	offset = ((DISPLAY_X - scale * frame->width) / 2)
+		+ ((DISPLAY_Y - scale * frame->height) / 2) * DISPLAY_X;
 	i = 0;
 	while (i < frame->height)
 	{
 		j = 0;
 		while (j < frame->width)
 		{
-			height = frame->points[i * frame->width + j];
-			if (height == 0)
-				buffer[offset + 100 * (i * frame->height + j)] = WHITE;
-			else
-				buffer[offset + 100 * (i * frame->width + j)] = 0x00FF0000;
+			buffer[offset + scale * (i * DISPLAY_X + j)] = WHITE;
+			if (frame->points[i * frame->width + j] != 0)
+				buffer[offset + scale * (i * DISPLAY_X + j)] = 0x00FF0000;
 			j++;
 		}
 		i++;
 	}
 	return (0);
+}
+
+int	ft_get_scale(t_frame *frame)
+{
+	int	scale_x;
+	int	scale_y;
+
+	scale_x = DISPLAY_X / frame->width;
+	scale_y = DISPLAY_Y / frame->height;
+	if (scale_x > scale_y)
+		return (scale_y);
+	return (scale_x);
 }

@@ -21,8 +21,6 @@
 
 # define DISPLAY_X 1080
 # define DISPLAY_Y 720
-# define DISPLAY_M 389340 // (DISPLAY_Y + 1) * DISPLAY_X / 2
-# define RATIO 3720
 
 # define WHITE 0x00FFFFFF
 
