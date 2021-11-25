@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/25 12:46:02 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/25 15:48:20 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,69 +14,39 @@
 
 int	main(int argc, char **argv)
 {
-	t_window	window;
-	t_frame		frame;
-	int			*image;
+	t_window	*window;
+	int			scale;
+	int			x;
+	int			y;
 
-	(void)argv;
 	if (argc != 2)
 		return (1);
-	if (ft_create_frame(&frame, argv[1]))
-		ft_error();
-	if (ft_create_window(&window))
-		ft_error();
-	image = ft_create_image(&window);
-	if (!image)
-		ft_error();
-	if (ft_frame_to_image(&frame, image))
-		ft_error();
-	mlx_put_image_to_window(window.mlx, window.win, window.img, 0, 0);
-	mlx_loop(window.mlx);
+	window = ft_create_window(argv[1]);
+	if (!window)
+		return (1);
+	ft_frame_to_image(window->frame, window->buf);
+	scale = ft_get_scale(window->frame);
+	x = (DISPLAY_X - (int)(scale * window->frame->width)) / 2;
+	y = (DISPLAY_Y - (int)(scale * window->frame->height)) / 2;
+	mlx_put_image_to_window(window->mlx, window->win, window->img, x, y);
+	mlx_hook(window->win, 17, 0L, ft_close, window);
+	mlx_key_hook(window->win, ft_key_hook, window);
+	mlx_loop(window->mlx);
 }
 
-void	ft_error(void)
+int	ft_key_hook(int keycode, t_window *window)
 {
-	perror(0);
-	exit(1);
-}
-
-float	ft_get_scale(t_frame *frame);
-
-int	ft_frame_to_image(t_frame *frame, int *buffer)
-{
-	int		i;
-	int		j;
-	int		offset;
-	float	scale;
-
-	scale = ft_get_scale(frame) / 1.2f;
-	offset = ((DISPLAY_X - (int)(scale * frame->width)) / 2)
-		+ DISPLAY_X * ((DISPLAY_Y - (int)(scale * frame->height)) / 2);
-	i = 0;
-	while (i < frame->height)
-	{
-		j = 0;
-		while (j < frame->width)
-		{
-			if (frame->points[i * frame->width + j])
-				buffer[offset + DISPLAY_X * (int)(i * scale) + (int)(j * scale)] = 0x00FF0000;
-			else
-				buffer[offset + DISPLAY_X * (int)(i * scale) + (int)(j * scale)] = WHITE;
-			j++;
-		}
-		i++;
-	}
+	if (keycode == ESC)
+		ft_close(window);
 	return (0);
 }
 
-float	ft_get_scale(t_frame *frame)
+int	ft_close(t_window *window)
 {
-	float	scale_x;
-	float	scale_y;
-
-	scale_x = (float)DISPLAY_X / (float)frame->width;
-	scale_y = (float)DISPLAY_Y / (float)frame->height;
-	if (scale_x < scale_y)
-		return (scale_x);
-	return (scale_y);
+	free(window->frame->points);
+	free(window->frame);
+	mlx_destroy_image(window->mlx, window->img);
+	mlx_destroy_window(window->mlx, window->win);
+	free(window);
+	exit(0);
 }

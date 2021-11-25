@@ -1,6 +1,6 @@
 NAME = fdf
 FLAGS = -Wall -Werror -Wextra
-SRC = main.c window.c frame.c
+SRC = main.c window.c frame.c parse.c
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 

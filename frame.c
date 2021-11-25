@@ -6,105 +6,113 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 12:31:59 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/22 16:22:34 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/25 16:26:32 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	ft_create_frame(t_frame *frame, char *file)
+t_frame	*ft_create_frame(char *file)
 {
+	t_frame	*frame;
 	int		fd;
-	int		ret;
 
+	frame = malloc(sizeof(*frame));
+	if (!frame)
+		return (0);
 	fd = open(file, O_RDONLY);
-	if (ft_get_width(frame, fd))
-		return (1);
+	frame->width = ft_get_width(fd);
 	close(fd);
 	fd = open(file, O_RDONLY);
-	if (ft_get_heigth(frame, fd))
-		return (2);
+	frame->height = ft_get_heigth(fd);
 	close(fd);
 	fd = open(file, O_RDONLY);
-	ret = ft_file_to_points(frame, fd);
+	frame->points = ft_get_points(fd, frame->width, frame->height);
 	close(fd);
-	if (ret)
-		return (4);
-	if (!frame->points)
-		return (5);
-	return (0);
+	if (!frame->width || !frame->height || !frame->points)
+	{
+		free(frame->points);
+		free(frame);
+		return (0);
+	}
+	return (frame);
 }
 
-int	ft_get_width(t_frame *frame, int fd)
+int	ft_get_width(int fd)
 {
 	char	*str;
+	char	*start;
+	int		i;
 
 	str = ft_get_next_line(fd);
 	if (!str)
-		return (1);
-	frame->width = 0;
+		return (0);
+	start = str;
+	i = 0;
 	while (*str)
 	{
 		while (*str == ' ')
 			str++;
-		frame->width++;
+		i++;
 		while (*str != ' ' && *str)
 			str++;
 	}
-	return (0);
+	free(start);
+	return (i);
 }
 
-int	ft_get_heigth(t_frame *frame, int fd)
-{
-	char	*str;
-
-	str = ft_get_next_line(fd);
-	if (!str)
-		return (1);
-	frame->height = 0;
-	while (str)
-	{
-		frame->height++;
-		free(str);
-		str = ft_get_next_line(fd);
-	}
-	return (0);
-}
-
-int	ft_file_to_points(t_frame *frame, int fd)
+int	ft_get_heigth(int fd)
 {
 	char	*str;
 	int		i;
 
-	frame->points = malloc(sizeof(int) * frame->width * frame->height);
-	if (!frame->points)
-		return (1);
+	str = ft_get_next_line(fd);
 	i = 0;
-	while (i < frame->height)
+	while (str)
 	{
-		str = ft_get_next_line(fd);
-		if (ft_str_to_points(str, frame, i))
-			return (1);
-		free(str);
 		i++;
+		free(str);
+		str = ft_get_next_line(fd);
 	}
-	return (0);
+	return (i);
 }
 
-int	ft_str_to_points(char *str, t_frame *frame, int row)
+int	*ft_get_points(int fd, int width, int height)
+{
+	char	*str;
+	int		*points;
+	int		*start;
+
+	if (!width || !height)
+		return (0);
+	points = malloc(sizeof(*points) * width * height);
+	if (!points)
+		return (0);
+	start = points;
+	str = ft_get_next_line(fd);
+	while (str)
+	{
+		points += ft_points_copy(str, points);
+		free(str);
+		str = ft_get_next_line(fd);
+	}
+	return (start);
+}
+
+int	ft_points_copy(char *str, int *points)
 {
 	char	**strs;
 	int		i;
 
 	strs = ft_split(str, ' ');
 	if (!strs)
-		return (1);
+		return (0);
 	i = 0;
 	while (strs[i])
 	{
-		*(frame->points + i + row * frame->width) = ft_atoi(strs[i]);
+		points[i] = ft_atoi(strs[i]);
 		i++;
 	}
 	ft_free_strs(strs);
-	return (0);
+	return (i);
 }

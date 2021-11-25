@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/25 12:30:48 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/25 16:18:19 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,32 @@ typedef struct s_frame
 	int	width;
 }		t_frame;
 
-typedef struct s_camera
-{
-	int		x;
-	int		y;
-	int		z;
-	float	focus;
-}			t_camera;
-
 typedef struct s_window
 {
 	void	*mlx;
 	void	*win;
+
 	void	*img;
+	int		*buf;
+
+	t_frame	*frame;
 }			t_window;
 
-int		ft_create_window(t_window *window);
-int		*ft_create_image(t_window *window);
-int		ft_hooks(t_window *window);
-int		ft_key_hook(int keycode, t_window *window);
-int		ft_close(t_window *window);
+int			ft_close(t_window *window);
 
-int		ft_create_frame(t_frame *frame, char *file);
-int		ft_get_width(t_frame *frame, int fd);
-int		ft_get_heigth(t_frame *frame, int fd);
-int		ft_file_to_points(t_frame *frame, int fd);
-int		ft_str_to_points(char *str, t_frame *frame, int row);
+t_window	*ft_create_window(char *file);
+int			*ft_get_buffer(void *img);
+void		*ft_window_error(t_window *window, int error);
 
-int		ft_frame_to_image(t_frame *frame, int *buffer);
-void	ft_error(void);
+t_frame		*ft_create_frame(char *file);
+int			ft_get_width(int fd);
+int			ft_get_heigth(int fd);
+int			*ft_get_points(int fd, int width, int height);
+int			ft_points_copy(char *str, int *points);
+
+int			ft_frame_to_image(t_frame *frame, int *buffer);
+
+float		ft_get_scale(t_frame *frame);
+int			ft_key_hook(int keycode, t_window *window);
 
 #endif
