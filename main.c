@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/23 16:38:59 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/25 12:46:02 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,28 @@ void	ft_error(void)
 	exit(1);
 }
 
-int	ft_get_scale(t_frame *frame);
+float	ft_get_scale(t_frame *frame);
 
 int	ft_frame_to_image(t_frame *frame, int *buffer)
 {
-	int	i;
-	int	j;
-	int	offset;
-	int	scale;
+	int		i;
+	int		j;
+	int		offset;
+	float	scale;
 
-	scale = ft_get_scale(frame) / 8;
-	offset = ((DISPLAY_X - scale * frame->width) / 2)
-		+ ((DISPLAY_Y - scale * frame->height) / 2) * DISPLAY_X;
+	scale = ft_get_scale(frame) / 1.2f;
+	offset = ((DISPLAY_X - (int)(scale * frame->width)) / 2)
+		+ DISPLAY_X * ((DISPLAY_Y - (int)(scale * frame->height)) / 2);
 	i = 0;
 	while (i < frame->height)
 	{
 		j = 0;
 		while (j < frame->width)
 		{
-			buffer[offset + scale * (i * DISPLAY_X + j)] = WHITE;
-			if (frame->points[i * frame->width + j] != 0)
-				buffer[offset + scale * (i * DISPLAY_X + j)] = 0x00FF0000;
+			if (frame->points[i * frame->width + j])
+				buffer[offset + DISPLAY_X * (int)(i * scale) + (int)(j * scale)] = 0x00FF0000;
+			else
+				buffer[offset + DISPLAY_X * (int)(i * scale) + (int)(j * scale)] = WHITE;
 			j++;
 		}
 		i++;
@@ -68,14 +69,14 @@ int	ft_frame_to_image(t_frame *frame, int *buffer)
 	return (0);
 }
 
-int	ft_get_scale(t_frame *frame)
+float	ft_get_scale(t_frame *frame)
 {
-	int	scale_x;
-	int	scale_y;
+	float	scale_x;
+	float	scale_y;
 
-	scale_x = DISPLAY_X / frame->width;
-	scale_y = DISPLAY_Y / frame->height;
-	if (scale_x > scale_y)
-		return (scale_y);
-	return (scale_x);
+	scale_x = (float)DISPLAY_X / (float)frame->width;
+	scale_y = (float)DISPLAY_Y / (float)frame->height;
+	if (scale_x < scale_y)
+		return (scale_x);
+	return (scale_y);
 }
