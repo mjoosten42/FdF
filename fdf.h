@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/26 15:30:50 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/26 16:31:47 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,6 @@
 
 # define ESC 53
 
-typedef struct s_frame
-{
-	int		*points;
-	int		height;
-	int		width;
-}		t_frame;
-
 typedef struct s_window
 {
 	void	*mlx;
@@ -41,8 +34,8 @@ typedef struct s_window
 	void	*img;
 	int		*buf;
 
-	t_frame	*frame;
-
+	int		width;
+	int		height;
 	float	scale;
 }			t_window;
 
@@ -50,18 +43,14 @@ int			ft_close(t_window *window);
 
 t_window	*ft_create_window(char *file);
 int			*ft_get_buffer(void *img);
-void		*ft_window_error(t_window *window, int error);
-
-t_frame		*ft_create_frame(char *file);
-int			ft_get_width(int fd);
-int			ft_get_heigth(int fd);
-int			*ft_get_points(int fd, int width, int height);
-int			ft_points_copy(char *str, int *points);
+int			ft_get_width(char *file);
+int			ft_get_height(char *file);
 float		ft_get_scale(int width, int height);
-
-void		ft_frame_to_image(t_window *window);
+void		ft_window_init(t_window *window);
 
 int			ft_key_hook(int keycode, t_window *window);
-int			ft_get_pixel(t_window *window, int x, int y);
+
+void		ft_draw_points(t_window *window, char *file);
+int			ft_draw_row(t_window *window, char *str, int row);
 
 #endif
