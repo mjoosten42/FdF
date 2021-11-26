@@ -6,47 +6,36 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:02:53 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/25 16:25:39 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/26 15:34:07 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-//frame->points[i * frame->width + j] << 20;
-
-int	ft_frame_to_image(t_frame *frame, int *buffer)
+void	ft_frame_to_image(t_window *window)
 {
+	int		pixel;
 	int		i;
 	int		j;
-	float	scale;
 
-	scale = ft_get_scale(frame);
 	i = 0;
-	while (i < frame->height)
+	while (i < window->frame->height)
 	{
 		j = 0;
-		while (j < frame->width)
+		while (j < window->frame->width)
 		{
-			buffer[DISPLAY_X * (int)(i * scale) + (int)(j * scale)] = frame->points[i * frame->width + j] << 20;
-			if (frame->points[i * frame->width + j] == 0)
-				buffer[DISPLAY_X * (int)(i * scale) + (int)(j * scale)] = WHITE;
+			pixel = ft_get_pixel(window, j, i);
+			window->buf[pixel] = WHITE;
 			j++;
 		}
 		i++;
 	}
-	return (0);
+	mlx_put_image_to_window(window->mlx, window->win, window->img,
+		DISPLAY_X / 2 - (int)(window->frame->width * window->scale / 2),
+		DISPLAY_Y / 2 - (int)(window->frame->height * window->scale / 2));
 }
 
-float	ft_get_scale(t_frame *frame)
+int	ft_get_pixel(t_window *window, int x, int y)
 {
-	float	scale;
-	float	scale_x;
-	float	scale_y;
-
-	scale = 1.2f;
-	scale_x = (float)DISPLAY_X / (float)frame->width;
-	scale_y = (float)DISPLAY_Y / (float)frame->height;
-	if (scale_x < scale_y)
-		return (scale_x / scale);
-	return (scale_y / scale);
+	return (DISPLAY_X * (int)(y * window->scale) + (int)(x * window->scale));
 }

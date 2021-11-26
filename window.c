@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:01:09 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/25 16:08:52 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/26 15:37:21 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_window	*ft_create_window(char *file)
 	window->frame = ft_create_frame(file);
 	if (!window->frame)
 		return (ft_window_error(window, 3));
+	window->scale = ft_get_scale(window->frame->width, window->frame->height);
 	return (window);
 }
 
@@ -47,6 +48,20 @@ int	*ft_get_buffer(void *img)
 	line_size = depth / 8 * DISPLAY_X;
 	endian = 0;
 	return ((int *)mlx_get_data_addr(img, &depth, &line_size, &endian));
+}
+
+float	ft_get_scale(int width, int height)
+{
+	float	scale;
+	float	scale_x;
+	float	scale_y;
+
+	scale = 1.2f;
+	scale_x = (float)DISPLAY_X / (float)width;
+	scale_y = (float)DISPLAY_Y / (float)height;
+	if (scale_x < scale_y)
+		return (scale_x / scale);
+	return (scale_y / scale);
 }
 
 void	*ft_window_error(t_window *window, int error)

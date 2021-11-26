@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/25 16:18:19 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/26 15:30:50 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 
 typedef struct s_frame
 {
-	int	*points;
-	int	height;
-	int	width;
+	int		*points;
+	int		height;
+	int		width;
 }		t_frame;
 
 typedef struct s_window
@@ -42,6 +42,8 @@ typedef struct s_window
 	int		*buf;
 
 	t_frame	*frame;
+
+	float	scale;
 }			t_window;
 
 int			ft_close(t_window *window);
@@ -55,10 +57,11 @@ int			ft_get_width(int fd);
 int			ft_get_heigth(int fd);
 int			*ft_get_points(int fd, int width, int height);
 int			ft_points_copy(char *str, int *points);
+float		ft_get_scale(int width, int height);
 
-int			ft_frame_to_image(t_frame *frame, int *buffer);
+void		ft_frame_to_image(t_window *window);
 
-float		ft_get_scale(t_frame *frame);
 int			ft_key_hook(int keycode, t_window *window);
+int			ft_get_pixel(t_window *window, int x, int y);
 
 #endif
