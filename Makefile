@@ -1,6 +1,15 @@
 NAME = fdf
 FLAGS = -Wall -Werror -Wextra
-SRC = main.c window.c createmap.c map.c matrix.c getx.c gety.c getz.c
+SRC = 	main.c			\
+		window.c 		\
+		createmap.c		\
+		map.c 			\
+		creatematrix.c 	\
+		matrix.c		\
+		vector.c		\
+		getx.c			\
+		gety.c			\
+		getz.c			
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 

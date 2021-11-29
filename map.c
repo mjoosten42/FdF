@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 14:25:22 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/29 16:05:54 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/29 16:40:55 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,22 @@
 void	ft_scale_map(t_vector **map, float scale)
 {
 	t_vector	**scale_matrix;
-	t_vector	**start;
 	t_vector	*move;
 
 	start = map;
 	move = ft_base_map(map);
 	ft_matrix_add(map, move);
 	scale_matrix = ft_create_scale_matrix(scale);
-	while (*map)
-		ft_matrix_multiply(*map++, scale_matrix);
-	ft_matrix_multiply(move, scale_matrix);
+	ft_matrix_multiply(map, scale_matrix);
+	ft_vector_multiply(move, scale_matrix);
 	ft_free_array((void **)scale_matrix);
-	ft_vector_invert(move);
-	ft_matrix_add(start, move);
+	ft_matrix_subtract(map, move);
 	free(move);
 }
 
 void	ft_center_map(t_vector **map)
 {
-	t_vector	*add_matrix;
+	t_vector	*move;
 	t_vector	**start;
 	float		x_max;
 	float		y_max;
@@ -50,12 +47,14 @@ void	ft_center_map(t_vector **map)
 			y_max = (*map)->y;
 		map++;
 	}
-	add_matrix = ft_create_move_matrix(
+	move = ft_create_move_matrix(
 			(DISPLAY_X - x_max) / 2,
 			(DISPLAY_Y - y_max) / 2,
 			0);
-	ft_matrix_add(start, add_matrix);
-	free(add_matrix);
+	map = start;
+	while (*map)
+		ft_matrix_add(*map++, move);
+	free(move);
 }
 
 float	ft_get_scale(t_vector **map)
