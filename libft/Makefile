@@ -44,7 +44,7 @@ SRC = 	ft_isalpha.c		\
 		ft_putnbr_fd.c		\
 							\
 		ft_get_next_line.c	\
-		ft_free_strs.c		\
+		ft_free_array.c		\
 
 OBJ = $(SRC:.c=.o)
 

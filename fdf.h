@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/26 16:31:47 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/29 10:53:29 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,25 @@
 
 # define ESC 53
 
+typedef struct s_vector
+{
+	float	x;
+	float	y;
+	float	z;
+
+	int		height;
+}			t_vector;
+
 typedef struct s_window
 {
-	void	*mlx;
-	void	*win;
+	void		*mlx;
+	void		*win;
 
-	void	*img;
-	int		*buf;
+	t_vector	*matrix;
 
-	int		width;
-	int		height;
-	float	scale;
+	int			x_max;
+	int			y_max;
+	int			z_max;
 }			t_window;
 
 int			ft_close(t_window *window);
@@ -49,8 +57,5 @@ float		ft_get_scale(int width, int height);
 void		ft_window_init(t_window *window);
 
 int			ft_key_hook(int keycode, t_window *window);
-
-void		ft_draw_points(t_window *window, char *file);
-int			ft_draw_row(t_window *window, char *str, int row);
 
 #endif
