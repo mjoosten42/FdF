@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/29 13:46:58 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/29 15:38:15 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,24 @@ int			ft_get_points(char *file);
 int			ft_fill_map(t_vector **map, char *file);
 t_vector	**ft_fill_row(t_vector **map, char *str, int z);
 
-void		ft_multiply_matrix(t_vector *vector, t_vector **matrix);
-t_vector	**ft_create_scale_matrix(float scale);
-void		ft_scale_map(t_vector **map, float scale);
+void		ft_matrix_add(t_vector **map, t_vector *vector);
+void		ft_matrix_multiply(t_vector *scale, t_vector **matrix);
 
+t_vector	*ft_create_move_matrix(int x, int y, int z);
+t_vector	**ft_create_scale_matrix(float scale);
+
+void		ft_scale_map(t_vector **map, float scale);
+void		ft_center_map(t_vector **map);
 float		ft_get_scale(t_vector **map);
-int			ft_biggest_vector(t_vector **map);
-int			ft_biggest(int a, int b);
-int			ft_smallest(int a, int b);
+t_vector	*ft_base_map(t_vector **map);
+void		ft_vector_invert(t_vector *vector);
+
+float		ft_get_x_max(t_vector **map);
+float		ft_get_x_min(t_vector **map);
+float		ft_get_y_max(t_vector **map);
+float		ft_get_y_min(t_vector **map);
+float		ft_get_z_max(t_vector **map);
+float		ft_get_z_min(t_vector **map);
 
 void		ft_draw_map(t_window *window);
 int			ft_mouse_hook(int button, int x, int y, t_window *window);

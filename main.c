@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/29 13:52:04 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/29 15:46:19 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int	main(int argc, char **argv)
 	window = ft_create_window(argv[1]);
 	if (!window)
 		return (1);
-	printf("Scale: %f\n", ft_get_scale(window->map));
+	free(ft_base_map(window->map));
 	ft_scale_map(window->map, ft_get_scale(window->map));
+	ft_center_map(window->map);
 	ft_draw_map(window);
 	mlx_hook(window->win, 17, 0L, ft_close, window);
 	mlx_key_hook(window->win, ft_key_hook, window);
@@ -52,15 +53,22 @@ int	ft_key_hook(int keycode, t_window *window)
 
 int	ft_mouse_hook(int button, int x, int y, t_window *window)
 {
-	if (button == SCROLL_DOWN)
+	float	scale;
+
+	if (button == 2)
 	{
-		ft_scale_map(window->map, 0.85f);
+		ft_scale_map(window->map, 0.88f);
 		mlx_clear_window(window->mlx, window->win);
 		ft_draw_map(window);
 	}
-	if (button == SCROLL_UP)
+	if (button == SCROLL_UP || button == SCROLL_DOWN)
 	{
-		ft_scale_map(window->map, 1.15f);
+		scale = 0.12f;
+		if (button == SCROLL_UP)
+			scale = 1 + scale;
+		if (button == SCROLL_DOWN)
+			scale = 1 - scale;
+		ft_scale_map(window->map, scale);
 		mlx_clear_window(window->mlx, window->win);
 		ft_draw_map(window);
 	}
