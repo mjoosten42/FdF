@@ -5,58 +5,57 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 10:59:06 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/29 11:18:51 by mjoosten         ###   ########.fr       */
+/*   Created: 2021/11/29 12:40:25 by mjoosten          #+#    #+#             */
+/*   Updated: 2021/11/29 13:44:41 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_vector	*ft_create_matrix(char *file)
+void	ft_multiply_matrix(t_vector *vector, t_vector **matrix)
 {
-	t_vector	*matrix;
-	int			points;
+	vector->x = vector->x * (matrix[0]->x + matrix[1]->x + matrix[2]->x);
+	vector->y = vector->y * (matrix[0]->y + matrix[1]->y + matrix[2]->y);
+	vector->z = vector->z * (matrix[0]->z + matrix[1]->z + matrix[2]->z);
+}
 
-	points = ft_get_points(file);
-	matrix = malloc(sizeof(*matrix) * (points + 1));
-	if (!matrix)
+t_vector	**ft_create_scale_matrix(float scale)
+{
+	t_vector	**scale_matrix;
+
+	scale_matrix = malloc(sizeof(*scale_matrix) * 4);
+	if (!scale_matrix)
 		return (0);
-	matrix[points] = 0;
-	ft_fill_matrix(matrix, points, file);
+	scale_matrix[0] = malloc(sizeof(t_vector));
+	scale_matrix[1] = malloc(sizeof(t_vector));
+	scale_matrix[2] = malloc(sizeof(t_vector));
+	scale_matrix[3] = 0;
+	if (!(scale_matrix[0] && scale_matrix[1] && scale_matrix[2]))
+	{
+		free(scale_matrix);
+		return (0);
 	}
+	scale_matrix[0]->x = scale;
+	scale_matrix[0]->y = 0;
+	scale_matrix[0]->z = 0;
+	scale_matrix[1]->x = 0;
+	scale_matrix[1]->y = scale;
+	scale_matrix[1]->z = 0;
+	scale_matrix[2]->x = 0;
+	scale_matrix[2]->y = 0;
+	scale_matrix[2]->z = scale;
+	return (scale_matrix);
 }
 
-int	ft_get_points(char *file)
+void	ft_scale_map(t_vector **map, float scale)
 {
-	char	**strs;
-	char	*str;
-	int		fd;
-	int		i;
+	t_vector	**scale_matrix;
 
-	i = 0;
-	fd = open(file, O_RDONLY);
-	str = ft_get_next_line(fd);
-	strs = ft_split(str, ' ');
-	if (strs)
+	scale_matrix = ft_create_scale_matrix(scale);
+	while (*map)
 	{
-		while (strs[i])
-			i++;
-		free(strs);
+		ft_multiply_matrix(*map, scale_matrix);
+		map++;
 	}
-	while (str)
-	{
-		i += i;
-		free(str);
-		str = ft_get_next_line(fd);
-	}
-	close(fd);
-	return (i);
-}
-
-int	ft_fill_matrix(t_vector *matrix, int points, char *file)
-{
-	char	*str;
-	int		fd;
-
-	fd = open(file, O_RDONLY)
+	ft_free_array((void **)scale_matrix);
 }

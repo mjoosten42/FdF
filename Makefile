@@ -1,10 +1,10 @@
 NAME = fdf
 FLAGS = -Wall -Werror -Wextra
-SRC = main.c window.c frame.c
+SRC = main.c window.c map.c matrix.c scale.c
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-FILE = 42
+FILE = julia
 
 all: $(NAME)
 	./$(NAME) maps/$(FILE).fdf
