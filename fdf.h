@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/30 12:03:36 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/30 12:58:03 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft/libft.h"
 # include "minilibx/mlx.h"
 # include <fcntl.h>
+# include <math.h>
 
 # include <stdio.h>
 
@@ -59,8 +60,13 @@ void		ft_vectoradd(t_vector *vector, t_vector *move);
 void		ft_vectorsubtract(t_vector *vector, t_vector *move);
 void		ft_vectormultiply(t_vector *vector, t_vector **matrix);
 
-t_vector	**ft_create_scale_matrix(float scale);
+t_vector	**ft_matrix_scale_new(float scale);
 void		ft_fill_scale_matrix(t_vector **scale_matrix, float scale);
+
+t_vector	**ft_matrix_rotate_new(char c, float angle);
+void		ft_fill_rotate_x(t_vector **rotate_matrix, float angle);
+void		ft_fill_rotate_y(t_vector **rotate_matrix, float angle);
+void		ft_fill_rotate_z(t_vector **rotate_matrix, float angle);
 
 void		ft_scale_map(t_vector **map, float scale);
 float		ft_get_scale(t_vector **map);

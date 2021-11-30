@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/30 11:54:01 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/30 13:01:53 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	main(int argc, char **argv)
 	if (!window)
 		return (1);
 	ft_scale_map(window->map, ft_get_scale(window->map));
-	//ft_center_map(window->map);
+	ft_center_map(window->map);
+	ft_rotate('x', -45);
 	ft_draw_map(window);
 	mlx_hook(window->win, 17, 0L, ft_close, window);
 	mlx_key_hook(window->win, ft_key_hook, window);
@@ -41,16 +42,9 @@ int	ft_mouse_hook(int button, int x, int y, t_window *window)
 {
 	float	scale;
 
-	if (button == 2)
-	{
-		ft_scale_map(window->map, 0.88f);
-		ft_center_map(window->map);
-		mlx_clear_window(window->mlx, window->win);
-		ft_draw_map(window);
-	}
 	if (button == SCROLL_UP || button == SCROLL_DOWN)
 	{
-		scale = 0.12f;
+		scale = 0.15f;
 		if (button == SCROLL_UP)
 			scale = 1 + scale;
 		if (button == SCROLL_DOWN)
@@ -70,6 +64,6 @@ int	ft_close(t_window *window)
 	mlx_destroy_window(window->mlx, window->win);
 	ft_free_array((void **)window->map);
 	free(window);
-	//system("leaks fdf");
+	system("leaks fdf");
 	exit(0);
 }

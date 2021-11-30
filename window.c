@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:01:09 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/30 12:00:21 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/30 12:38:28 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_window	*ft_create_window(char *file)
 	{
 		if (window->win)
 			mlx_destroy_window(window->mlx, window->win);
-		free(window->map);
+		ft_free_array((void **)window->map);
 		free(window);
 		return (0);
 	}
@@ -44,20 +44,13 @@ int	ft_get_width(char *file)
 
 	fd = open(file, O_RDONLY);
 	str = ft_get_next_line(fd);
-	if (!str)
-	{
-		close (fd);
-		return (0);
-	}
 	strs = ft_split(str, ' ');
-	if (!strs)
-	{
-		free(str);
-		close(fd);
-		return (0);
-	}
 	i = 0;
-	while (strs[i])
-		i++;
+	if (strs)
+		while (strs[i])
+			i++;
+	ft_free_array((void **)strs);
+	free(str);
+	close(fd);
 	return (i);
 }
