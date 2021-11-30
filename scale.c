@@ -5,79 +5,91 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 16:39:11 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/29 14:48:27 by mjoosten         ###   ########.fr       */
+/*   Created: 2021/11/29 16:15:17 by mjoosten          #+#    #+#             */
+/*   Updated: 2021/11/30 11:52:23 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float	ft_get_x_max(t_vector **map)
+t_vector	**ft_create_scale_matrix(float scale)
 {
-	float	x_max;
+	t_vector	**scale_matrix;
 
-	x_max = (*map)->x;
-	while (*map)
+	scale_matrix = malloc(sizeof(*scale_matrix) * 4);
+	if (!scale_matrix)
+		return (0);
+	scale_matrix[0] = malloc(sizeof(t_vector));
+	scale_matrix[1] = malloc(sizeof(t_vector));
+	scale_matrix[2] = malloc(sizeof(t_vector));
+	scale_matrix[3] = 0;
+	if (!(scale_matrix[0] && scale_matrix[1] && scale_matrix[2]))
 	{
-		if ((*map)->x > x_max)
-			x_max = (*map)->x;
-		map++;
+		free(scale_matrix[0]);
+		free(scale_matrix[1]);
+		free(scale_matrix[2]);
+		free(scale_matrix);
+		return (0);
 	}
-	return (x_max);
+	ft_fill_scale_matrix(scale_matrix, scale);
+	return (scale_matrix);
 }
 
-float	ft_get_x_min(t_vector **map)
+void	ft_fill_scale_matrix(t_vector **scale_matrix, float scale)
 {
-	float	x_min;
-
-	x_min = (*map)->x;
-	while (*map)
-	{
-		if ((*map)->x < x_min)
-			x_min = (*map)->x;
-		map++;
-	}
-	return (x_min);
+	scale_matrix[0]->x = scale;
+	scale_matrix[0]->y = 0;
+	scale_matrix[0]->z = 0;
+	scale_matrix[1]->x = 0;
+	scale_matrix[1]->y = scale;
+	scale_matrix[1]->z = 0;
+	scale_matrix[2]->x = 0;
+	scale_matrix[2]->y = 0;
+	scale_matrix[2]->z = scale;
 }
 
-float	ft_get_y_max(t_vector **map)
+t_vector	*ft_get_map_max(t_vector **map)
 {
-	float	y_max;
+	t_vector	*max;
 
-	y_max = (*map)->y;
+	max = malloc(sizeof(*max));
+	if (!max)
+		return (0);
+	max->x = (*map)->x;
+	max->y = (*map)->y;
+	max->z = (*map)->z;
 	while (*map)
 	{
-		if ((*map)->y > y_max)
-			y_max = (*map)->y;
+		if ((*map)->x > max->x)
+			max->x = (*map)->x;
+		if ((*map)->y > max->y)
+			max->y = (*map)->y;
+		if ((*map)->z > max->z)
+			max->z = (*map)->z;
 		map++;
 	}
-	return (y_max);
+	return (max);
 }
 
-float	ft_get_y_min(t_vector **map)
+t_vector	*ft_get_map_min(t_vector **map)
 {
-	float	y_min;
+	t_vector	*min;
 
-	y_min = (*map)->y;
+	min = malloc(sizeof(*min));
+	if (!min)
+		return (0);
+	min->x = (*map)->x;
+	min->y = (*map)->y;
+	min->z = (*map)->z;
 	while (*map)
 	{
-		if ((*map)->y < y_min)
-			y_min = (*map)->y;
+		if ((*map)->x < min->x)
+			min->x = (*map)->x;
+		if ((*map)->y < min->y)
+			min->y = (*map)->y;
+		if ((*map)->z < min->z)
+			min->z = (*map)->z;
 		map++;
 	}
-	return (y_min);
-}
-
-float	ft_get_z_max(t_vector **map)
-{
-	float	z_max;
-
-	z_max = (*map)->z;
-	while (*map)
-	{
-		if ((*map)->z > z_max)
-			z_max = (*map)->z;
-		map++;
-	}
-	return (z_max);
+	return (min);
 }

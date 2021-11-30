@@ -4,16 +4,12 @@ SRC = 	main.c			\
 		window.c 		\
 		createmap.c		\
 		map.c 			\
-		creatematrix.c 	\
-		matrix.c		\
-		vector.c		\
-		getx.c			\
-		gety.c			\
-		getz.c			
+		scale.c		 	\
+		vector.c		
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-FILE = mars
+FILE = 42
 
 all: $(NAME)
 	./$(NAME) maps/$(FILE).fdf
