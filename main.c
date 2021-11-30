@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/30 13:01:53 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/30 15:49:21 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int	main(int argc, char **argv)
 	if (!window)
 		return (1);
 	ft_scale_map(window->map, ft_get_scale(window->map));
+	//ft_rotate_map(window->map, 'y', -45);
+	//ft_rotate_map(window->map, 'x', -45);
 	ft_center_map(window->map);
-	ft_rotate('x', -45);
 	ft_draw_map(window);
 	mlx_hook(window->win, 17, 0L, ft_close, window);
 	mlx_key_hook(window->win, ft_key_hook, window);
@@ -33,6 +34,20 @@ int	main(int argc, char **argv)
 
 int	ft_key_hook(int keycode, t_window *window)
 {
+	if (keycode == A || keycode == S || keycode == D || keycode == W)
+	{
+		if (keycode == A)
+			ft_rotate_map(window->map, 'y', 30);
+		if (keycode == S)
+			ft_rotate_map(window->map, 'x', 30);
+		if (keycode == D)
+			ft_rotate_map(window->map, 'y', -30);
+		if (keycode == W)
+			ft_rotate_map(window->map, 'x', -30);
+		ft_center_map(window->map);
+		mlx_clear_window(window->mlx, window->win);
+		ft_draw_map(window);
+	}
 	if (keycode == ESC)
 		ft_close(window);
 	return (0);
@@ -64,6 +79,6 @@ int	ft_close(t_window *window)
 	mlx_destroy_window(window->mlx, window->win);
 	ft_free_array((void **)window->map);
 	free(window);
-	system("leaks fdf");
+	//system("leaks fdf");
 	exit(0);
 }

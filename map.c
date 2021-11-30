@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 14:25:22 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/30 13:02:59 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/30 14:45:39 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,33 @@ void	ft_center_map(t_vector **map)
 	free(min);
 }
 
+void	ft_rotate_map(t_vector **map, char c, float angle)
+{
+	t_vector	**rotate_matrix;
+
+	rotate_matrix = ft_matrix_rotate_new(c, angle);
+	if (!rotate_matrix)
+		return ;
+	while (*map)
+		ft_vectormultiply(*map++, rotate_matrix);
+	ft_free_array((void **)rotate_matrix);
+}
+
 void	ft_draw_map(t_window *window)
 {
 	t_vector	**map;
+	int			i;
 
 	map = window->map;
-	while (*map)
+	i = 0;
+	while (map[i])
 	{
 		mlx_pixel_put(window->mlx, window->win,
-			(*map)->x, DISPLAY_Y - (*map)->y, WHITE);
-		map++;
+			map[i]->x, DISPLAY_Y - map[i]->y, WHITE);
+		if (i > window->width)
+			ft_drawline(window, map[i], map[i - window->width]);
+		if (i % window->width)
+			ft_drawline(window, map[i], map[i - 1]);
+		i++;
 	}
 }

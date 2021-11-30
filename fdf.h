@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/30 12:58:03 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/30 15:47:59 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 # define WHITE 0x00FFFFFF
 
 # define ESC 53
+# define A 0
+# define S 1
+# define D 2
+# define W 13
+
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
@@ -64,14 +69,17 @@ t_vector	**ft_matrix_scale_new(float scale);
 void		ft_fill_scale_matrix(t_vector **scale_matrix, float scale);
 
 t_vector	**ft_matrix_rotate_new(char c, float angle);
-void		ft_fill_rotate_x(t_vector **rotate_matrix, float angle);
-void		ft_fill_rotate_y(t_vector **rotate_matrix, float angle);
-void		ft_fill_rotate_z(t_vector **rotate_matrix, float angle);
+void		ft_fill_rotate_x(t_vector **rotate_matrix, double radian);
+void		ft_fill_rotate_y(t_vector **rotate_matrix, double radian);
+void		ft_fill_rotate_z(t_vector **rotate_matrix, double radian);
 
 void		ft_scale_map(t_vector **map, float scale);
 float		ft_get_scale(t_vector **map);
 void		ft_center_map(t_vector **map);
+void		ft_rotate_map(t_vector **map, char c, float angle);
 void		ft_draw_map(t_window *window);
+
+void		ft_drawline(t_window *window, t_vector *first, t_vector *second);
 
 t_vector	*ft_get_map_max(t_vector **map);
 t_vector	*ft_get_map_min(t_vector **map);

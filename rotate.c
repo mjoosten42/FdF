@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 12:46:49 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/30 13:01:19 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/30 15:32:46 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_vector	**ft_matrix_rotate_new(char c, float angle)
 {
 	t_vector	**rotate_matrix;
+	double		radian;
 
 	rotate_matrix = malloc(sizeof(*rotate_matrix) * 4);
 	rotate_matrix[0] = malloc(sizeof(t_vector));
@@ -29,20 +30,19 @@ t_vector	**ft_matrix_rotate_new(char c, float angle)
 		free(rotate_matrix);
 		return (0);
 	}
+	radian = angle * M_PI / 180;
+	printf("Radian: %f\n", radian);
 	if (c == 'x')
-		ft_fill_rotate_x(rotate_matrix, angle);
+		ft_fill_rotate_x(rotate_matrix, radian);
 	if (c == 'y')
-		ft_fill_rotate_y(rotate_matrix, angle);
+		ft_fill_rotate_y(rotate_matrix, radian);
 	if (c == 'z')
-		ft_fill_rotate_z(rotate_matrix, angle);
+		ft_fill_rotate_z(rotate_matrix, radian);
 	return (rotate_matrix);
 }
 
-void	ft_fill_rotate_x(t_vector **rotate_matrix, float angle)
+void	ft_fill_rotate_x(t_vector **rotate_matrix, double radian)
 {
-	double	radian;
-
-	radian = angle / (2 * M_PI);
 	rotate_matrix[0]->x = 1;
 	rotate_matrix[0]->y = 0;
 	rotate_matrix[0]->z = 0;
@@ -54,11 +54,8 @@ void	ft_fill_rotate_x(t_vector **rotate_matrix, float angle)
 	rotate_matrix[2]->z = cos(radian);
 }
 
-void	ft_fill_rotate_y(t_vector **rotate_matrix, float angle)
+void	ft_fill_rotate_y(t_vector **rotate_matrix, double radian)
 {
-	double	radian;
-
-	radian = angle / (2 * M_PI);
 	rotate_matrix[0]->x = cos(radian);
 	rotate_matrix[0]->y = 0;
 	rotate_matrix[0]->z = sin(radian);
@@ -70,11 +67,8 @@ void	ft_fill_rotate_y(t_vector **rotate_matrix, float angle)
 	rotate_matrix[2]->z = cos(radian);
 }
 
-void	ft_fill_rotate_z(t_vector **rotate_matrix, float angle)
+void	ft_fill_rotate_z(t_vector **rotate_matrix, double radian)
 {
-	double	radian;
-
-	radian = angle / (2 * M_PI);
 	rotate_matrix[0]->x = cos(radian);
 	rotate_matrix[0]->y = -sin(radian);
 	rotate_matrix[0]->z = 0;

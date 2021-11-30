@@ -6,11 +6,13 @@ SRC = 	main.c			\
 		map.c 			\
 		scale.c		 	\
 		vector.c		\
-		rotate.c
+		rotate.c		\
+		map_size.c		\
+		line.c
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-FILE = julia
+FILE = 42
 
 all: $(NAME)
 	./$(NAME) maps/$(FILE).fdf
