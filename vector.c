@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:36:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/30 12:01:22 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/03 10:59:06 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,13 @@ void	ft_vectorsubtract(t_vector *vector, t_vector *move)
 
 void	ft_vectormultiply(t_vector *vector, t_vector **matrix)
 {
-	vector->x = vector->x * (matrix[0]->x + matrix[1]->x + matrix[2]->x);
-	vector->y = vector->y * (matrix[0]->y + matrix[1]->y + matrix[2]->y);
-	vector->z = vector->z * (matrix[0]->z + matrix[1]->z + matrix[2]->z);
+	vector->x = vector->x * matrix[0]->x
+		+ vector->y * matrix[0]->y
+		+ vector->z * matrix[0]->z;
+	vector->y = vector->x * matrix[1]->x
+		+ vector->y * matrix[1]->y
+		+ vector->z * matrix[2]->z;
+	vector->z = vector->x * matrix[2]->x
+		+ vector->y * matrix[2]->y
+		+ vector->z * matrix[2]->z;
 }

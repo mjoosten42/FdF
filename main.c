@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/30 15:49:21 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/03 11:27:06 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	main(int argc, char **argv)
 	if (!window)
 		return (1);
 	ft_scale_map(window->map, ft_get_scale(window->map));
-	//ft_rotate_map(window->map, 'y', -45);
-	//ft_rotate_map(window->map, 'x', -45);
+	ft_rotate_map(window->map, 'y', -45);
+	ft_rotate_map(window->map, 'x', -30);
 	ft_center_map(window->map);
 	ft_draw_map(window);
 	mlx_hook(window->win, 17, 0L, ft_close, window);
@@ -34,16 +34,21 @@ int	main(int argc, char **argv)
 
 int	ft_key_hook(int keycode, t_window *window)
 {
-	if (keycode == A || keycode == S || keycode == D || keycode == W)
+	if (keycode == A || keycode == S || keycode == D
+		|| keycode == W || keycode == Q || keycode == E)
 	{
 		if (keycode == A)
 			ft_rotate_map(window->map, 'y', 30);
 		if (keycode == S)
 			ft_rotate_map(window->map, 'x', 30);
+		if (keycode == Q)
+			ft_rotate_map(window->map, 'z', -30);
 		if (keycode == D)
 			ft_rotate_map(window->map, 'y', -30);
 		if (keycode == W)
 			ft_rotate_map(window->map, 'x', -30);
+		if (keycode == E)
+			ft_rotate_map(window->map, 'z', 30);
 		ft_center_map(window->map);
 		mlx_clear_window(window->mlx, window->win);
 		ft_draw_map(window);
@@ -65,7 +70,7 @@ int	ft_mouse_hook(int button, int x, int y, t_window *window)
 		if (button == SCROLL_DOWN)
 			scale = 1 - scale;
 		ft_scale_map(window->map, scale);
-		ft_center_map(window->map);
+		//ft_center_map(window->map);
 		mlx_clear_window(window->mlx, window->win);
 		ft_draw_map(window);
 	}
