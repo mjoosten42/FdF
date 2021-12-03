@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/03 11:18:56 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/03 15:22:38 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int			ft_get_points(char *file);
 int			ft_fill_map(t_vector **map, char *file);
 t_vector	**ft_fill_row(t_vector **map, char *str, int z);
 
-t_vector	*ft_vectornew(int x, int y, int z);
+t_vector	*ft_vectornew(float x, float y, float z);
 void		ft_vectoradd(t_vector *vector, t_vector *move);
 void		ft_vectorsubtract(t_vector *vector, t_vector *move);
 void		ft_vectormultiply(t_vector *vector, t_vector **matrix);

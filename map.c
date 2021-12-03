@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 14:25:22 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/30 14:45:39 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/03 15:53:58 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ void	ft_center_map(t_vector **map)
 
 	max = ft_get_map_max(map);
 	min = ft_get_map_min(map);
-	ft_vectoradd(max, min);
+	ft_vectorsubtract(max, min);
 	scale_matrix = ft_matrix_scale_new(0.5f);
 	ft_vectormultiply(max, scale_matrix);
+	ft_vectoradd(min, max);
 	display_center = ft_vectornew(DISPLAY_X / 2, DISPLAY_Y / 2, 0);
-	ft_vectorsubtract(display_center, max);
+	ft_vectorsubtract(display_center, min);
 	while (*map)
 		ft_vectoradd(*map++, display_center);
 	ft_free_array((void **)scale_matrix);

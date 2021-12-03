@@ -105,7 +105,7 @@ t_vector	**ft_fill_row(t_vector **map, char *str, int z)
 		}
 		(*map)->x = x;
 		(*map)->y = ft_atoi(strs[x]);
-		(*map)->z = z;
+		(*map)->z = -z;
 		(*map)->height = (*map)->y;
 		map++;
 		x++;

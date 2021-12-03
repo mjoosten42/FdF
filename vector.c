@@ -6,13 +6,13 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:36:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/03 10:59:06 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/03 15:22:27 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_vector	*ft_vectornew(int x, int y, int z)
+t_vector	*ft_vectornew(float x, float y, float z)
 {
 	t_vector	*vector;
 
