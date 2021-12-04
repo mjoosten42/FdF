@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:36:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/03 15:22:27 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/04 16:13:02 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_vector	*ft_vectornew(float x, float y, float z)
 
 void	ft_vectoradd(t_vector *vector, t_vector *move)
 {
+	if (!vector || !move)
+		return ;
 	vector->x = vector->x + move->x;
 	vector->y = vector->y + move->y;
 	vector->z = vector->z + move->z;
@@ -34,6 +36,8 @@ void	ft_vectoradd(t_vector *vector, t_vector *move)
 
 void	ft_vectorsubtract(t_vector *vector, t_vector *move)
 {
+	if (!vector || !move)
+		return ;
 	vector->x = vector->x - move->x;
 	vector->y = vector->y - move->y;
 	vector->z = vector->z - move->z;
@@ -41,6 +45,10 @@ void	ft_vectorsubtract(t_vector *vector, t_vector *move)
 
 void	ft_vectormultiply(t_vector *vector, t_vector **matrix)
 {
+	if (!vector || !matrix)
+		return ;
+	if (!matrix[0] || !matrix[1] || !matrix[2])
+		return ;
 	vector->x = vector->x * matrix[0]->x
 		+ vector->y * matrix[0]->y
 		+ vector->z * matrix[0]->z;

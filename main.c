@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/04 14:22:23 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/04 16:06:09 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,6 @@ int	ft_mouse_hook(int button, int x, int y, t_window *window)
 {
 	float	scale;
 
-	if (button == 2)
-	{
-		ft_center_map(window->map);
-		mlx_clear_window(window->mlx, window->win);
-		ft_draw_map(window);
-	}
 	if (button == SCROLL_UP || button == SCROLL_DOWN)
 	{
 		scale = 0.15f;
@@ -75,7 +69,7 @@ int	ft_mouse_hook(int button, int x, int y, t_window *window)
 		if (button == SCROLL_DOWN)
 			scale = 1 - scale;
 		ft_scale_map(window->map, scale);
-		ft_center_map(window->map);
+		//ft_center_map(window->map);
 		mlx_clear_window(window->mlx, window->win);
 		ft_draw_map(window);
 	}
