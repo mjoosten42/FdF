@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 14:25:22 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/03 15:53:58 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/04 14:24:57 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,22 @@ void	ft_scale_map(t_vector **map, float scale)
 
 void	ft_center_map(t_vector **map)
 {
-	t_vector	**scale_matrix;
 	t_vector	*display_center;
-	t_vector	*max;
-	t_vector	*min;
+	t_vector	*map_center;
 
-	max = ft_get_map_max(map);
-	min = ft_get_map_min(map);
-	ft_vectorsubtract(max, min);
-	scale_matrix = ft_matrix_scale_new(0.5f);
-	ft_vectormultiply(max, scale_matrix);
-	ft_vectoradd(min, max);
+	map_center = ft_mapcenter(map);
+	if (!map_center)
+		return ;
+	printvector(map_center);
 	display_center = ft_vectornew(DISPLAY_X / 2, DISPLAY_Y / 2, 0);
-	ft_vectorsubtract(display_center, min);
+	if (!display_center)
+		return ;
+	ft_vectorsubtract(display_center, map_center);
+	display_center->z = 0;
 	while (*map)
 		ft_vectoradd(*map++, display_center);
-	ft_free_array((void **)scale_matrix);
 	free(display_center);
-	free(max);
-	free(min);
+	free(map_center);
 }
 
 void	ft_rotate_map(t_vector **map, char c, float angle)
@@ -64,6 +61,7 @@ void	ft_draw_map(t_window *window)
 
 	map = window->map;
 	i = 0;
+	mlx_clear_window(window->mlx, window->win);
 	while (map[i])
 	{
 		mlx_pixel_put(window->mlx, window->win,
@@ -74,4 +72,9 @@ void	ft_draw_map(t_window *window)
 			ft_drawline(window, map[i], map[i - 1]);
 		i++;
 	}
+}
+
+void	printvector(t_vector *vector)
+{
+	printf("x: %f, y: %f, z: %f\n", vector->x, vector->y, vector->z);
 }

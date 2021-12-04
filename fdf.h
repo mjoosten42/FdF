@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/03 15:22:38 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/04 14:24:35 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_window
 	int			width;
 }			t_window;
 
+void		printvector(t_vector *vector);
+
 t_window	*ft_create_window(char *file);
 int			ft_get_width(char *file);
 
@@ -79,9 +81,11 @@ void		ft_rotate_map(t_vector **map, char c, float angle);
 void		ft_draw_map(t_window *window);
 
 void		ft_drawline(t_window *window, t_vector *first, t_vector *second);
+void		ft_drawboldline(t_window *window, int x, int y);
 
-t_vector	*ft_get_map_max(t_vector **map);
-t_vector	*ft_get_map_min(t_vector **map);
+t_vector	*ft_mapcenter(t_vector **map);
+t_vector	*ft_mapmax(t_vector **map);
+t_vector	*ft_mapmin(t_vector **map);
 
 int			ft_mouse_hook(int button, int x, int y, t_window *window);
 int			ft_key_hook(int keycode, t_window *window);

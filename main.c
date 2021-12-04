@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/03 16:36:30 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/04 14:22:23 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int argc, char **argv)
 	//ft_rotate_map(window->map, 'y', -45);
 	//ft_rotate_map(window->map, 'x', -45);
 	ft_center_map(window->map);
-	printf("%f, %f, %f\n", window->map[42]->x, window->map[42]->y, window->map[42]->z);
 	ft_draw_map(window);
 	mlx_hook(window->win, 17, 0L, ft_close, window);
 	mlx_key_hook(window->win, ft_key_hook, window);
@@ -43,17 +42,15 @@ int	ft_key_hook(int keycode, t_window *window)
 		if (keycode == S)
 			ft_rotate_map(window->map, 'x', 5);
 		if (keycode == Q)
-			ft_rotate_map(window->map, 'z', -5);
+			ft_rotate_map(window->map, 'z', 5);
 		if (keycode == D)
 			ft_rotate_map(window->map, 'y', -5);
 		if (keycode == W)
 			ft_rotate_map(window->map, 'x', -5);
 		if (keycode == E)
-			ft_rotate_map(window->map, 'z', 5);
+			ft_rotate_map(window->map, 'z', -5);
 		ft_center_map(window->map);
-		mlx_clear_window(window->mlx, window->win);
 		ft_draw_map(window);
-		printf("%f, %f, %f\n", window->map[42]->x, window->map[42]->y, window->map[42]->z);
 	}
 	if (keycode == ESC)
 		ft_close(window);

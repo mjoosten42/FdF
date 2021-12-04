@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:43:03 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/03 15:13:23 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/04 14:15:46 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,18 @@ void	ft_drawline(t_window *window, t_vector *first, t_vector *second)
 	while ((int)length--)
 	{
 		ft_vectoradd(a, b);
-		mlx_pixel_put(window->mlx, window->win,
-			a->x, DISPLAY_Y - a->y, WHITE);
+		ft_drawboldline(window, a->x, DISPLAY_Y - a->y);
 	}
 	ft_free_array((void **)scale_matrix);
 	free(a);
 	free(b);
+}
+
+void	ft_drawboldline(t_window *window, int x, int y)
+{
+	mlx_pixel_put(window->mlx, window->win, x, y, WHITE);
+	mlx_pixel_put(window->mlx, window->win, x + 1, y, WHITE);
+	mlx_pixel_put(window->mlx, window->win, x, y + 1, WHITE);
+	mlx_pixel_put(window->mlx, window->win, x - 1, y, WHITE);
+	mlx_pixel_put(window->mlx, window->win, x, y - 1, WHITE);
 }

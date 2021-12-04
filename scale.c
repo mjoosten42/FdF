@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:15:17 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/03 11:28:34 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/04 14:05:57 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ float	ft_get_scale(t_vector **map)
 	display_smallest = DISPLAY_X;
 	if (display_smallest > DISPLAY_Y)
 		display_smallest = DISPLAY_Y;
-	max = ft_get_map_max(map);
+	max = ft_mapmax(map);
 	if (!max)
 		return (0);
 	diagonal = sqrt(max->x * max->x + max->y * max->y);

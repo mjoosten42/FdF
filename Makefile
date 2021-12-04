@@ -12,7 +12,7 @@ SRC = 	main.c			\
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-FILE = 42
+FILE = pylone
 
 all: $(NAME)
 	./$(NAME) maps/$(FILE).fdf

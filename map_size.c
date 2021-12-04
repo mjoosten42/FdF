@@ -6,13 +6,33 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:02:29 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/30 13:02:50 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/04 14:06:24 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_vector	*ft_get_map_max(t_vector **map)
+t_vector	*ft_mapcenter(t_vector **map)
+{
+	t_vector	*center;
+	int			points;
+
+	points = 0;
+	center = ft_vectornew(0, 0, 0);
+	if (!center)
+		return (0);
+	while (*map)
+	{
+		ft_vectoradd(center, *map++);
+		points++;
+	}
+	center->x = center->x / points;
+	center->y = center->y / points;
+	center->z = center->z / points;
+	return (center);
+}
+
+t_vector	*ft_mapmax(t_vector **map)
 {
 	t_vector	*max;
 
@@ -35,7 +55,7 @@ t_vector	*ft_get_map_max(t_vector **map)
 	return (max);
 }
 
-t_vector	*ft_get_map_min(t_vector **map)
+t_vector	*ft_mapmin(t_vector **map)
 {
 	t_vector	*min;
 
