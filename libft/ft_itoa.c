@@ -6,11 +6,10 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 13:20:45 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/01 10:55:02 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/06 16:26:27 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 static void	ft_recitoa(int n, char *str);
@@ -31,7 +30,7 @@ char	*ft_itoa(int n)
 	i = 0;
 	while (m >= 10 && ++i)
 		m /= 10;
-	str = (char *)malloc(i + min + 2);
+	str = malloc(sizeof(*str) * (i + min + 2));
 	if (!str)
 		return (0);
 	*(str + i + min + 1) = 0;

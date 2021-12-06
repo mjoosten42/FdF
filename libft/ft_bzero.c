@@ -6,15 +6,13 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 13:20:22 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/10/28 13:20:23 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/11/19 11:11:57 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
 #include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {
-	while (n--)
-		*(char *)s++ = 0;
+	ft_memset(s, 0, n);
 }

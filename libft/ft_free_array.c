@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 10:50:00 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/29 10:50:05 by mjoosten         ###   ########.fr       */
+/*   Created: 2021/12/06 15:51:28 by mjoosten          #+#    #+#             */
+/*   Updated: 2021/12/06 15:53:20 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	ft_free_array(void **array)
 		return ;
 	start = array;
 	while (*array)
-		free(*(array++));
+		free(*array++);
 	free(start);
 }

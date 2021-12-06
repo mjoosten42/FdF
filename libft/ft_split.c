@@ -6,17 +6,15 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 13:21:43 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/10/28 13:21:43 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/06 16:27:15 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 static int	ft_wordcount(char const *s, char c);
 static int	ft_wordlength(char const *s, char c);
 static int	ft_wordcpy(char **strs, char const *s, char c);
-static int	ft_freestrs(char **strs, int i);
 
 char	**ft_split(char const *s, char c)
 {
@@ -32,7 +30,7 @@ char	**ft_split(char const *s, char c)
 	}
 	while (*s == c)
 		s++;
-	strs = (char **)malloc((ft_wordcount(s, c) + 1) * sizeof(char **));
+	strs = malloc(sizeof(*strs) * (ft_wordcount(s, c) + 1));
 	if (!strs)
 		return (0);
 	if (ft_wordcpy(strs, s, c))
@@ -62,45 +60,31 @@ static int	ft_wordlength(char const *s, char c)
 	int	i;
 
 	i = 0;
-	while (*s && *s != c)
-	{
+	while (s[i] && s[i] != c)
 		i++;
-		s++;
-	}
 	return (i);
 }
 
 static int	ft_wordcpy(char **strs, char const *s, char c)
 {
 	int	i;
-	int	j;
+	int	len;
 
 	i = 0;
 	while (*s)
 	{
-		*(strs + i) = (char *)malloc(ft_wordlength(s, c) + 1);
-		if (ft_freestrs(strs, i))
+		len = ft_wordlength(s, c);
+		strs[i] = malloc(sizeof(*strs[i]) * len + 1);
+		if (!strs[i])
+		{
+			ft_free_array((void **)strs);
 			return (1);
-		j = 0;
-		while (*s && *s != c)
-			*(*(strs + i) + j++) = *s++;
-		*(*(strs + i) + j) = 0;
+		}
+		ft_strlcpy(strs[i], s, len + 1);
+		s += len;
 		while (*s == c)
 			s++;
 		i++;
-	}
-	return (0);
-}
-
-static int	ft_freestrs(char **strs, int i)
-{
-	if (!(*(strs + i)))
-	{
-		i++;
-		while (i--)
-			free(*(strs + i));
-		free(strs);
-		return (1);
 	}
 	return (0);
 }
