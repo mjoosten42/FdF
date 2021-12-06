@@ -15,13 +15,15 @@
 t_vector	**ft_create_map(char *file)
 {
 	t_vector	**map;
-	int			points;
+	int			width;
+	int			height;
 
-	points = ft_get_points(file);
-	map = malloc(sizeof(*map) * (points + 1));
+	width = ft_get_width(file);
+	height = ft_get_height(file);
+	map = malloc(sizeof(*map) * (width * height + 1));
 	if (!map)
 		return (0);
-	map[points] = 0;
+	map[width * height] = 0;
 	if (ft_fill_map(map, file))
 	{
 		ft_free_array((void **)map);
@@ -30,47 +32,57 @@ t_vector	**ft_create_map(char *file)
 	return (map);
 }
 
-int	ft_get_points(char *file)
+int	ft_get_width(char *file)
 {
 	char	**strs;
 	char	*str;
 	int		fd;
-	int		columns;
-	int		rows;
+	int		i;
 
-	columns = 0;
 	fd = open(file, O_RDONLY);
 	str = ft_get_next_line(fd);
 	strs = ft_split(str, ' ');
+	i = 0;
 	if (strs)
-	{
-		while (strs[columns])
-			columns++;
-		ft_free_array((void **)strs);
-	}
-	rows = 0;
+		while (strs[i])
+			i++;
+	ft_free_array((void **)strs);
+	free(str);
+	close(fd);
+	return (i);
+}
+
+int	ft_get_height(char *file)
+{
+	char	*str;
+	int		fd;
+	int		i;
+
+	fd = open(file, O_RDONLY);
+	str = ft_get_next_line(fd);
+	i = 0;
 	while (str)
 	{
-		rows++;
 		free(str);
+		i++;
 		str = ft_get_next_line(fd);
 	}
 	close(fd);
-	return (columns * rows);
+	return (i);
 }
 
 int	ft_fill_map(t_vector **map, char *file)
 {
 	char	*str;
 	int		fd;
-	int		z;
+	int		j;
 
-	z = 0;
+	j = 0;
 	fd = open(file, O_RDONLY);
 	str = ft_get_next_line(fd);
 	while (str)
 	{
-		map = ft_fill_row(map, str, z);
+		map += ft_fill_row(map, str, j);
 		if (!map)
 		{
 			free(str);
@@ -79,37 +91,32 @@ int	ft_fill_map(t_vector **map, char *file)
 		}
 		free(str);
 		str = ft_get_next_line(fd);
-		z++;
+		j++;
 	}
 	close(fd);
 	return (0);
 }
 
-t_vector	**ft_fill_row(t_vector **map, char *str, int z)
+int	ft_fill_row(t_vector **map, char *str, int j)
 {
-	t_vector	*vector;
 	char		**strs;
-	int			x;
+	int			i;
 
 	strs = ft_split(str, ' ');
 	if (!strs)
 		return (0);
-	x = 0;
-	while (strs[x])
+	i = 0;
+	while (strs[i])
 	{
-		*map = malloc(sizeof(*vector));
-		if (!(*map))
+		map[i] = ft_vectornew(i, ft_atoi(strs[i]), j);
+		if (!map[i])
 		{
 			ft_free_array((void **)strs);
 			return (0);
 		}
-		(*map)->x = x;
-		(*map)->y = ft_atoi(strs[x]);
-		(*map)->z = -z;
-		(*map)->height = (*map)->y;
-		map++;
-		x++;
+		map[i]->height = map[i]->y;
+		i++;
 	}
 	ft_free_array((void **)strs);
-	return (map);
+	return (i);
 }

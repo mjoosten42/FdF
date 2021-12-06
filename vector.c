@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:36:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/04 16:13:02 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/06 13:55:40 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,16 @@ void	ft_vectormultiply(t_vector *vector, t_vector **matrix)
 		return ;
 	if (!matrix[0] || !matrix[1] || !matrix[2])
 		return ;
-	vector->x = vector->x * matrix[0]->x
+	vector->x
+		= vector->x * matrix[0]->x
 		+ vector->y * matrix[0]->y
 		+ vector->z * matrix[0]->z;
-	vector->y = vector->x * matrix[1]->x
+	vector->y
+		= vector->x * matrix[1]->x
 		+ vector->y * matrix[1]->y
-		+ vector->z * matrix[2]->z;
-	vector->z = vector->x * matrix[2]->x
+		+ vector->z * matrix[1]->z;
+	vector->z
+		= vector->x * matrix[2]->x
 		+ vector->y * matrix[2]->y
 		+ vector->z * matrix[2]->z;
 }
