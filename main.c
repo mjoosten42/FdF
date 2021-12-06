@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/06 15:13:24 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/06 18:56:30 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,4 @@ int	ft_close(t_window *window)
 void	printvector(t_vector *vector)
 {
 	printf("x: %.2f y: %.2f z: %.2f\n", vector->x, vector->y, vector->z);
-}
-
-void	printmatrix(t_vector **matrix)
-{
-	printf("---Matrix--\n");
-	printf("x: %.2f y: %.2f z: %.2f\n",
-		matrix[0]->x, matrix[0]->y, matrix[0]->z);
-	printf("x: %.2f y: %.2f z: %.2f\n",
-		matrix[1]->x, matrix[1]->y, matrix[1]->z);
-	printf("x: %.2f y: %.2f z: %.2f\n",
-		matrix[2]->x, matrix[2]->y, matrix[2]->z);
-	printf("\n");
 }

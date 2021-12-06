@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:01:09 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/06 15:33:38 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/06 18:19:18 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_window	*ft_create_window(char *file)
 	if (!window)
 		return (0);
 	window->width = ft_get_width(file);
-	window->height = ft_get_height(file);
 	window->map = ft_create_map(file);
 	window->mlx = mlx_init();
 	if (window->mlx)

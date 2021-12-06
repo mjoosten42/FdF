@@ -3,10 +3,10 @@ FLAGS = -Wall -Werror -Wextra
 SRC = 	main.c			\
 		window.c 		\
 		createmap.c		\
-		map.c 			\
-		scale.c		 	\
 		vector.c		\
+		scale.c		 	\
 		rotate.c		\
+		map.c 			\
 		line.c
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a

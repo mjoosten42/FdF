@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:43:03 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/06 14:56:25 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/06 18:46:20 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_drawline(t_window *window, t_vector *first, t_vector *second)
 	t_vector	*b;
 	float		length;
 
-	a = ft_vectornew(first->x, first->y, 0);
-	b = ft_vectornew(second->x, second->y, 0);
+	a = ft_vectornew(first->x, first->y, first->height);
+	b = ft_vectornew(second->x, second->y, second->height);
 	if (!a || !b || (first->x == second->x && first->y == second->y))
 	{
 		free(a);
@@ -36,8 +36,9 @@ void	ft_drawline(t_window *window, t_vector *first, t_vector *second)
 	while ((int)length--)
 	{
 		ft_vectoradd(a, b);
+		a->height += b->height;
 		ft_boldline(window, a->x + DISPLAY_X * 0.5f,
-			-a->y + DISPLAY_Y * 0.5f, WHITE);
+			a->y + DISPLAY_Y * 0.5f, WHITE >> a->height);
 	}
 	ft_free_array((void **)scale_matrix);
 	free(a);

@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/06 15:33:27 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/06 18:56:39 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,9 @@ typedef struct s_window
 
 	t_vector	**map;
 	int			width;
-	int			height;
 }			t_window;
 
 void		printvector(t_vector *vector);
-void		printmatrix(t_vector **matrix);
 
 t_window	*ft_create_window(char *file);
 t_vector	**ft_create_map(char *file);
