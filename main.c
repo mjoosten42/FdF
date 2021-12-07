@@ -24,31 +24,16 @@ int	main(int argc, char **argv)
 	ft_center_map(window->map, window->size);
 	ft_scale_map(window->map, ft_get_scale(window->map));
 	ft_draw_map(window);
-	mlx_hook(window->win, 17, 0L, ft_close, window);
-	mlx_key_hook(window->win, ft_key_hook, window);
+	mlx_hook(window->win, DESTROY_NOTIFY, 1L << 17, ft_close, window);
+	mlx_hook(window->win, MOTION_NOTIFY, 1L << 8, ft_motion, window);
+	mlx_hook(window->win, BUTTON_RELEASE, 1L << 3, ft_release, window);
 	mlx_mouse_hook(window->win, ft_mouse_hook, window);
+	mlx_key_hook(window->win, ft_key_hook, window);
 	mlx_loop(window->mlx);
 }
 
 int	ft_key_hook(int keycode, t_window *window)
 {
-	if (keycode == A || keycode == S || keycode == D
-		|| keycode == W || keycode == Q || keycode == E)
-	{
-		if (keycode == A)
-			ft_rotate_map(window->map, 'y', 15);
-		if (keycode == S)
-			ft_rotate_map(window->map, 'x', 15);
-		if (keycode == Q)
-			ft_rotate_map(window->map, 'z', 15);
-		if (keycode == D)
-			ft_rotate_map(window->map, 'y', -15);
-		if (keycode == W)
-			ft_rotate_map(window->map, 'x', -15);
-		if (keycode == E)
-			ft_rotate_map(window->map, 'z', -15);
-		ft_draw_map(window);
-	}
 	if (keycode == ESC)
 		ft_close(window);
 	return (0);
@@ -56,6 +41,8 @@ int	ft_key_hook(int keycode, t_window *window)
 
 int	ft_mouse_hook(int button, int x, int y, t_window *window)
 {
+	if (button == LEFT_MOUSE_BUTTON)
+		window->mouse = 1;
 	if (button == SCROLL_DOWN)
 	{
 		ft_scale_map(window->map, 0.85f);
@@ -68,6 +55,38 @@ int	ft_mouse_hook(int button, int x, int y, t_window *window)
 	}
 	(void)x;
 	(void)y;
+	return (0);
+}
+
+int	ft_motion(int x, int y, t_window *window)
+{
+	float	sensitivity;
+
+	sensitivity = 0.1f;
+	if (window->mouse)
+	{
+		if (x != window->x)
+		{
+			ft_rotate_map(window->map, 'y', sensitivity * (x - window->x));
+			ft_draw_map(window);
+		}
+		if (y != window->y)
+		{
+			ft_rotate_map(window->map, 'x', sensitivity * (window->y - y));
+			ft_draw_map(window);
+		}
+	}
+	window->x = x;
+	window->y = y;
+	return (0);
+}
+
+int	ft_release(int button, int x, int y, t_window *window)
+{
+	(void)x;
+	(void)y;
+	if (button == LEFT_MOUSE_BUTTON)
+		window->mouse = 0;
 	return (0);
 }
 

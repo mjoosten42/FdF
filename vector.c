@@ -62,3 +62,17 @@ void	ft_vectormultiply(t_vector *vector, t_vector **matrix)
 		+ vector->y * matrix[2]->y
 		+ vector->z * matrix[2]->z;
 }
+
+float	ft_vectornormal(t_vector *vector)
+{
+	t_vector	**scale_matrix;
+	float		length;
+
+	length = sqrt(pow(vector->x, 2) + pow(vector->y, 2));
+	scale_matrix = ft_matrix_scale_new(1.f / length);
+	if (!scale_matrix)
+		return (0);
+	ft_vectormultiply(vector, scale_matrix);
+	ft_free_array((void **)scale_matrix);
+	return (length);
+}

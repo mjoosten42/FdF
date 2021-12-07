@@ -33,5 +33,9 @@ t_window	*ft_create_window(char *file)
 		free(window);
 		return (0);
 	}
+	window->gradient = 0xFFFFFFFF / window->size->y;
+	window->mouse = 0;
+	window->x = 0;
+	window->y = 0;
 	return (window);
 }

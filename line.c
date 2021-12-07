@@ -39,17 +39,3 @@ void	ft_drawline(t_window *window, t_vector *first, t_vector *second)
 	free(a);
 	free(b);
 }
-
-float	ft_vectornormal(t_vector *vector)
-{
-	t_vector	**scale_matrix;
-	float		length;
-
-	length = sqrt(vector->x * vector->x + vector->y * vector->y);
-	scale_matrix = ft_matrix_scale_new(1.f / length);
-	if (!scale_matrix)
-		return (0);
-	ft_vectormultiply(vector, scale_matrix);
-	ft_free_array((void **)scale_matrix);
-	return (length);
-}

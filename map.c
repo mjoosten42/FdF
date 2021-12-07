@@ -80,16 +80,20 @@ void	ft_rotate_map(t_vector **map, char c, float angle)
 
 void	ft_draw_map(t_window *window)
 {
-	int	i;
+	float	xhalf;
+	float	yhalf;
+	int		i;
 
+	xhalf = 0.5f * DISPLAY_X;
+	yhalf = 0.5f * DISPLAY_Y;
 	i = 0;
 	mlx_clear_window(window->mlx, window->win);
 	while (window->map[i])
 	{
 		mlx_pixel_put(window->mlx, window->win,
-			window->map[i]->x + 0.5f * (float)DISPLAY_X,
-			window->map[i]->y + 0.5f * (float)DISPLAY_Y,
-			WHITE);
+			window->map[i]->x + xhalf,
+			window->map[i]->y + yhalf,
+			window->map[i]->height * window->gradient + BLUE);
 		if (i >= (int)window->size->x)
 			ft_drawline(window,
 				window->map[i],

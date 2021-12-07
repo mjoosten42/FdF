@@ -23,18 +23,20 @@
 # define DISPLAY_X 1080
 # define DISPLAY_Y 720
 
-# define WHITE 0x00FFFFFF
+# define WHITE 	0x00FFFFFF
+# define RED 	0x00FF0000
+# define GREEN 	0x0000FF00
+# define BLUE 	0x000000FF
 
-# define A 0
-# define S 1
-# define D 2
-# define Q 12
-# define W 13
-# define E 14
 # define ESC 53
 
-# define SCROLL_UP 4
-# define SCROLL_DOWN 5
+# define LEFT_MOUSE_BUTTON 	1
+# define SCROLL_UP 			4
+# define SCROLL_DOWN 		5
+
+# define BUTTON_RELEASE 5
+# define MOTION_NOTIFY 	6
+# define DESTROY_NOTIFY	17
 
 typedef struct s_vector
 {
@@ -52,8 +54,12 @@ typedef struct s_window
 
 	t_vector	**map;
 	t_vector	*size;
-	int			width;
-}			t_window;
+	int			gradient;
+
+	int			mouse;
+	int			x;
+	int			y;
+}				t_window;
 
 void		printvector(t_vector *vector);
 
@@ -68,6 +74,7 @@ t_vector	*ft_vectornew(float x, float y, float z);
 void		ft_vectoradd(t_vector *vector, t_vector *move);
 void		ft_vectorsubtract(t_vector *vector, t_vector *move);
 void		ft_vectormultiply(t_vector *vector, t_vector **matrix);
+float		ft_vectornormal(t_vector *vector);
 
 t_vector	**ft_matrix_scale_new(float scale);
 t_vector	**ft_matrix_rotate_new(char c, float angle);
@@ -81,10 +88,13 @@ void		ft_rotate_map(t_vector **map, char c, float angle);
 void		ft_draw_map(t_window *window);
 
 void		ft_drawline(t_window *window, t_vector *first, t_vector *second);
-float		ft_vectornormal(t_vector *vector);
 
 int			ft_mouse_hook(int button, int x, int y, t_window *window);
 int			ft_key_hook(int keycode, t_window *window);
+
+int			ft_motion(int x, int y, t_window *window);
+int			ft_release(int button, int x, int y, t_window *window);
+
 int			ft_close(t_window *window);
 
 #endif
