@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 14:25:22 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/06 18:50:50 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/07 11:55:39 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ void	ft_draw_map(t_window *window)
 		mlx_pixel_put(window->mlx, window->win,
 			window->map[i]->x + DISPLAY_X * 0.5f,
 			window->map[i]->y + DISPLAY_Y * 0.5f,
-			WHITE >> window->map[i]->height);
-		if (i > window->width)
-			ft_drawline(window, window->map[i], window->map[i - window->width]);
-		if (i % window->width)
-			ft_drawline(window, window->map[i], window->map[i - 1]);
+			WHITE);
+		if (i > (int)window->max->x)
+			ft_drawline(window, window->map[i],
+				window->map[i - (int)window->max->x]);
+		if (i % (int)window->max->x)
+			ft_drawline(window, window->map[i],
+				window->map[i - 1]);
 		i++;
 	}
 }

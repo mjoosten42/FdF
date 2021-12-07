@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:15:17 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/06 14:00:02 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/07 11:47:03 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,14 @@ float	ft_get_scale(t_vector **map)
 {
 	t_vector	*max;
 	float		diagonal;
-	float		scale_x;
-	float		scale_y;
 
 	max = ft_mapmax(map);
 	if (!max)
 		return (0);
 	diagonal = sqrt(max->x * max->x + max->z * max->z);
-	scale_x = (float)DISPLAY_X / diagonal;
-	scale_y = 0.5f * (float)DISPLAY_Y / max->y;
+	diagonal = sqrt(diagonal * diagonal + max->y * max->y);
 	free(max);
-	if (scale_x < scale_y)
-		return (scale_x / 1.2f);
-	return (scale_y / 1.2f);
-}
-
-t_vector	*ft_mapmax(t_vector **map)
-{
-	t_vector	*max;
-	float		y_min;
-
-	max = ft_vectornew(map[0]->x, map[0]->y, map[0]->z);
-	while (*map)
-	{
-		if ((*map)->x > max->x)
-			max->x = (*map)->x;
-		if ((*map)->y > max->y)
-			max->y = (*map)->y;
-		if ((*map)->y < y_min)
-			y_min = (*map)->y;
-		if ((*map)->z > max->z)
-			max->z = (*map)->z;
-		map++;
-	}
-	max->y = max->y - y_min;
-	return (max);
+	if (DISPLAY_X < DISPLAY_Y)
+		return ((float)DISPLAY_X / diagonal);
+	return ((float)DISPLAY_Y / diagonal);
 }

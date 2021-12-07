@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:43:03 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/06 18:46:20 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/07 12:03:12 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_drawline(t_window *window, t_vector *first, t_vector *second)
 	t_vector	*a;
 	t_vector	*b;
 	float		length;
+	int			color;
 
 	a = ft_vectornew(first->x, first->y, first->height);
 	b = ft_vectornew(second->x, second->y, second->height);
@@ -33,12 +34,12 @@ void	ft_drawline(t_window *window, t_vector *first, t_vector *second)
 	if (!scale_matrix)
 		return ;
 	ft_vectormultiply(b, scale_matrix);
+	color = WHITE / window->max->y;
 	while ((int)length--)
 	{
 		ft_vectoradd(a, b);
-		a->height += b->height;
 		ft_boldline(window, a->x + DISPLAY_X * 0.5f,
-			a->y + DISPLAY_Y * 0.5f, WHITE >> a->height);
+			a->y + DISPLAY_Y * 0.5f, (abs)(a->height * color));
 	}
 	ft_free_array((void **)scale_matrix);
 	free(a);
@@ -52,5 +53,10 @@ void	ft_boldline(t_window *window, float x, float y, int color)
 	mlx_pixel_put(window->mlx, window->win,
 		x + 1, y, color);
 	mlx_pixel_put(window->mlx, window->win,
-		x - 1, y, color);
+		x, y + 1, color);
+}
+
+void	ft_drawstep(t_vector *t_vector, int length)
+{
+
 }

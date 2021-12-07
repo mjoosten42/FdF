@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/06 18:56:39 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/07 11:40:13 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_window
 	void		*win;
 
 	t_vector	**map;
+	t_vector	*max;
 	int			width;
 }			t_window;
 
