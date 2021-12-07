@@ -51,7 +51,7 @@ typedef struct s_window
 	void		*win;
 
 	t_vector	**map;
-	t_vector	*max;
+	t_vector	*size;
 	int			width;
 }			t_window;
 
@@ -73,14 +73,15 @@ t_vector	**ft_matrix_scale_new(float scale);
 t_vector	**ft_matrix_rotate_new(char c, float angle);
 void		ft_fill_rotate_matrix(t_vector **matrix, char c, double radian);
 
+t_vector	*ft_mapsize(t_vector **map);
+void		ft_center_map(t_vector **map, t_vector *max);
 void		ft_scale_map(t_vector **map, float scale);
 float		ft_get_scale(t_vector **map);
-t_vector	*ft_mapmax(t_vector **map);
 void		ft_rotate_map(t_vector **map, char c, float angle);
 void		ft_draw_map(t_window *window);
 
 void		ft_drawline(t_window *window, t_vector *first, t_vector *second);
-void		ft_boldline(t_window *window, float x, float y, int color);
+float		ft_vectornormal(t_vector *vector);
 
 int			ft_mouse_hook(int button, int x, int y, t_window *window);
 int			ft_key_hook(int keycode, t_window *window);

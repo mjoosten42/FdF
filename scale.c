@@ -36,15 +36,15 @@ t_vector	**ft_matrix_scale_new(float scale)
 
 float	ft_get_scale(t_vector **map)
 {
-	t_vector	*max;
+	t_vector	*size;
 	float		diagonal;
 
-	max = ft_mapmax(map);
-	if (!max)
+	size = ft_mapsize(map);
+	if (!size)
 		return (0);
-	diagonal = sqrt(max->x * max->x + max->z * max->z);
-	diagonal = sqrt(diagonal * diagonal + max->y * max->y);
-	free(max);
+	diagonal = sqrt(size->x * size->x + size->z * size->z);
+	diagonal = sqrt(diagonal * diagonal + size->y * size->y);
+	free(size);
 	if (DISPLAY_X < DISPLAY_Y)
 		return ((float)DISPLAY_X / diagonal);
 	return ((float)DISPLAY_Y / diagonal);

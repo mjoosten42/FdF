@@ -21,6 +21,7 @@ int	main(int argc, char **argv)
 	window = ft_create_window(argv[1]);
 	if (!window)
 		return (1);
+	ft_center_map(window->map, window->size);
 	ft_scale_map(window->map, ft_get_scale(window->map));
 	ft_draw_map(window);
 	mlx_hook(window->win, 17, 0L, ft_close, window);
@@ -35,17 +36,17 @@ int	ft_key_hook(int keycode, t_window *window)
 		|| keycode == W || keycode == Q || keycode == E)
 	{
 		if (keycode == A)
-			ft_rotate_map(window->map, 'y', 10);
+			ft_rotate_map(window->map, 'y', 15);
 		if (keycode == S)
-			ft_rotate_map(window->map, 'x', 10);
+			ft_rotate_map(window->map, 'x', 15);
 		if (keycode == Q)
-			ft_rotate_map(window->map, 'z', 10);
+			ft_rotate_map(window->map, 'z', 15);
 		if (keycode == D)
-			ft_rotate_map(window->map, 'y', -10);
+			ft_rotate_map(window->map, 'y', -15);
 		if (keycode == W)
-			ft_rotate_map(window->map, 'x', -10);
+			ft_rotate_map(window->map, 'x', -15);
 		if (keycode == E)
-			ft_rotate_map(window->map, 'z', -10);
+			ft_rotate_map(window->map, 'z', -15);
 		ft_draw_map(window);
 	}
 	if (keycode == ESC)

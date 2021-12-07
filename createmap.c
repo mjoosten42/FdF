@@ -108,7 +108,7 @@ int	ft_fill_row(t_vector **map, char *str, int j)
 	i = 0;
 	while (strs[i])
 	{
-		map[i] = ft_vectornew(i, ft_atoi(strs[i]), j);
+		map[i] = ft_vectornew(i, -ft_atoi(strs[i]), j);
 		if (!map[i])
 		{
 			ft_free_array((void **)strs);
