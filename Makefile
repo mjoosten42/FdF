@@ -10,7 +10,7 @@ SRC = 	main.c			\
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-FILE = 42
+FILE = test
 
 all: $(NAME)
 	./$(NAME) maps/$(FILE).fdf

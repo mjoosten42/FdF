@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/06 18:56:30 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/08 15:34:59 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (1);
 	window = ft_create_window(argv[1]);
-	if (!window)
-		return (1);
 	ft_center_map(window->map, window->size);
-	ft_scale_map(window->map, ft_get_scale(window->map));
+	ft_scale_map(window->map, 2);
+	printmap(window->map);
+	ft_rotate_map(window->map, 'x', -90);
+	printmap(window->map);
+	//ft_rotate_map(window->map, 'y', 45);
+	window->size->x++;
 	ft_draw_map(window);
 	mlx_hook(window->win, DESTROY_NOTIFY, 1L << 17, ft_close, window);
 	mlx_hook(window->win, MOTION_NOTIFY, 1L << 8, ft_motion, window);
@@ -62,7 +65,7 @@ int	ft_motion(int x, int y, t_window *window)
 {
 	float	sensitivity;
 
-	sensitivity = 0.1f;
+	sensitivity = 0.3f;
 	if (window->mouse)
 	{
 		if (x != window->x)
@@ -83,23 +86,36 @@ int	ft_motion(int x, int y, t_window *window)
 
 int	ft_release(int button, int x, int y, t_window *window)
 {
-	(void)x;
-	(void)y;
 	if (button == LEFT_MOUSE_BUTTON)
 		window->mouse = 0;
+	(void)x;
+	(void)y;
 	return (0);
+}
+
+void	ft_error(void)
+{
+	perror(0);
+	exit(EXIT_FAILURE);
 }
 
 int	ft_close(t_window *window)
 {
 	mlx_destroy_window(window->mlx, window->win);
-	ft_free_array((void **)window->map);
-	free(window);
-	//system("leaks fdf");
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
 
 void	printvector(t_vector *vector)
 {
-	printf("x: %.2f y: %.2f z: %.2f\n", vector->x, vector->y, vector->z);
+	printf("x: %5.2f y: %5.2f z: %5.2f\n", vector->x, vector->y, vector->z);
+}
+
+void	printmap(t_vector **map)
+{
+	printf("-----------Map:-----------\n");
+	while (*map)
+	{
+		printvector(*map);
+		map++;
+	}
 }

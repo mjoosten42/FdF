@@ -22,13 +22,9 @@ t_vector	**ft_create_map(char *file)
 	height = ft_get_height(file);
 	map = malloc(sizeof(*map) * (width * height + 1));
 	if (!map)
-		return (0);
+		ft_error();
 	map[width * height] = 0;
-	if (ft_fill_map(map, file))
-	{
-		ft_free_array((void **)map);
-		return (0);
-	}
+	ft_fill_map(map, file);
 	return (map);
 }
 
@@ -40,12 +36,15 @@ int	ft_get_width(char *file)
 	int		i;
 
 	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		ft_error();
 	str = ft_get_next_line(fd);
 	strs = ft_split(str, ' ');
+	if (!strs)
+		ft_error();
 	i = 0;
-	if (strs)
-		while (strs[i])
-			i++;
+	while (strs[i])
+		i++;
 	ft_free_array((void **)strs);
 	free(str);
 	close(fd);
@@ -59,6 +58,8 @@ int	ft_get_height(char *file)
 	int		i;
 
 	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		ft_error();
 	str = ft_get_next_line(fd);
 	i = 0;
 	while (str)
@@ -79,16 +80,12 @@ int	ft_fill_map(t_vector **map, char *file)
 
 	j = 0;
 	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		ft_error();
 	str = ft_get_next_line(fd);
 	while (str)
 	{
 		map += ft_fill_row(map, str, j);
-		if (!map)
-		{
-			free(str);
-			close(fd);
-			return (1);
-		}
 		free(str);
 		str = ft_get_next_line(fd);
 		j++;
@@ -109,11 +106,6 @@ int	ft_fill_row(t_vector **map, char *str, int j)
 	while (strs[i])
 	{
 		map[i] = ft_vectornew(i, -ft_atoi(strs[i]), j);
-		if (!map[i])
-		{
-			ft_free_array((void **)strs);
-			return (0);
-		}
 		map[i]->height = map[i]->y;
 		i++;
 	}

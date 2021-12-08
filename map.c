@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 14:25:22 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/07 11:55:39 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/08 15:13:57 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_vector	*ft_mapsize(t_vector **map)
 	t_vector	*size;
 	float		y_min;
 
+	if (!map)
+		return (0);
 	size = ft_vectornew(map[0]->x, map[0]->y, map[0]->z);
 	while (*map)
 	{
@@ -48,10 +50,9 @@ void	ft_center_map(t_vector **map, t_vector *size)
 	{
 		(*map)->x -= x;
 		(*map)->y += y;
-		(*map)->z += z;
+		(*map)->z -= z;
 		map++;
 	}
-	size->x++;
 }
 
 void	ft_scale_map(t_vector **map, float scale)
@@ -93,7 +94,7 @@ void	ft_draw_map(t_window *window)
 		mlx_pixel_put(window->mlx, window->win,
 			window->map[i]->x + xhalf,
 			window->map[i]->y + yhalf,
-			window->map[i]->height * window->gradient + BLUE);
+			WHITE);
 		if (i >= (int)window->size->x)
 			ft_drawline(window,
 				window->map[i],
@@ -104,4 +105,6 @@ void	ft_draw_map(t_window *window)
 				window->map[i - 1]);
 		i++;
 	}
+	ft_drawline(window, window->map[1], window->map[2]);
+	ft_drawline(window, window->map[0], window->map[3]);
 }

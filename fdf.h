@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/07 11:40:13 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/08 14:58:00 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ typedef struct s_window
 }				t_window;
 
 void		printvector(t_vector *vector);
+void		printmap(t_vector **map);
 
 t_window	*ft_create_window(char *file);
+
 t_vector	**ft_create_map(char *file);
 int			ft_get_width(char *file);
 int			ft_get_height(char *file);
@@ -83,7 +85,7 @@ void		ft_fill_rotate_matrix(t_vector **matrix, char c, double radian);
 t_vector	*ft_mapsize(t_vector **map);
 void		ft_center_map(t_vector **map, t_vector *max);
 void		ft_scale_map(t_vector **map, float scale);
-float		ft_get_scale(t_vector **map);
+float		ft_get_scale(t_window *window);
 void		ft_rotate_map(t_vector **map, char c, float angle);
 void		ft_draw_map(t_window *window);
 
@@ -95,6 +97,7 @@ int			ft_key_hook(int keycode, t_window *window);
 int			ft_motion(int x, int y, t_window *window);
 int			ft_release(int button, int x, int y, t_window *window);
 
+void		ft_error(void);
 int			ft_close(t_window *window);
 
 #endif

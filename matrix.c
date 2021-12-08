@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scale.c                                            :+:      :+:    :+:   */
+/*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:15:17 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/07 11:47:03 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/08 15:16:34 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,23 @@ t_vector	**ft_matrix_scale_new(float scale)
 
 	scale_matrix = malloc(sizeof(*scale_matrix) * 4);
 	if (!scale_matrix)
-		return (0);
+		ft_error();
 	scale_matrix[0] = ft_vectornew(scale, 0, 0);
 	scale_matrix[1] = ft_vectornew(0, scale, 0);
 	scale_matrix[2] = ft_vectornew(0, 0, scale);
 	scale_matrix[3] = 0;
-	if (!(scale_matrix[0] && scale_matrix[1] && scale_matrix[2]))
-	{
-		free(scale_matrix[0]);
-		free(scale_matrix[1]);
-		free(scale_matrix[2]);
-		free(scale_matrix);
-		return (0);
-	}
 	return (scale_matrix);
 }
 
-float	ft_get_scale(t_vector **map)
+float	ft_get_scale(t_window *window)
 {
-	t_vector	*size;
 	float		diagonal;
 
-	size = ft_mapsize(map);
-	if (!size)
-		return (0);
-	diagonal = sqrt(size->x * size->x + size->z * size->z);
-	diagonal = sqrt(diagonal * diagonal + size->y * size->y);
-	free(size);
+	diagonal = sqrt(
+			window->size->x * window->size->x
+			+ window->size->z * window->size->z);
+	diagonal = sqrt(diagonal * diagonal
+			+ window->size->y * window->size->y);
 	if (DISPLAY_X < DISPLAY_Y)
 		return ((float)DISPLAY_X / diagonal);
 	return ((float)DISPLAY_Y / diagonal);
@@ -56,16 +46,8 @@ t_vector	**ft_matrix_rotate_new(char c, float angle)
 
 	rotate_matrix = malloc(sizeof(*rotate_matrix) * 4);
 	if (!rotate_matrix)
-		return (0);
+		ft_error();
 	ft_fill_rotate_matrix(rotate_matrix, c, angle * M_PI / 180);
-	if (!(rotate_matrix[0] && rotate_matrix[1] && rotate_matrix[2]))
-	{
-		free(rotate_matrix[0]);
-		free(rotate_matrix[1]);
-		free(rotate_matrix[2]);
-		free(rotate_matrix);
-		return (0);
-	}
 	return (rotate_matrix);
 }
 
