@@ -11,7 +11,7 @@ SRC = 	main.c			\
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-FILE = 42
+FILE = julia
 
 all: $(NAME)
 	./$(NAME) maps/$(FILE).fdf
@@ -19,7 +19,7 @@ all: $(NAME)
 	@rm -rf $(NAME).dSYM
 
 $(NAME): $(SRC) $(LIBFT) $(MLX)
-	gcc $(FLAGS) -o $(NAME) $(SRC) $(LIBFT) $(MLX) -framework OpenGL -framework AppKit -g -fsanitize=address
+	gcc $(FLAGS) -o $(NAME) $(SRC) $(LIBFT) $(MLX) -framework OpenGL -framework AppKit
 
 $(LIBFT):
 	make -C libft

@@ -108,7 +108,7 @@ int	ft_fill_row(t_vector **map, char *str, int j)
 		map[i] = ft_vectornew(i, -ft_atoi(strs[i]), j);
 		if (!map[i])
 			ft_error(0);
-		map[i]->height = map[i]->y;
+		map[i]->height = -map[i]->y;
 		i++;
 	}
 	ft_free_array((void **)strs);

@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 14:25:22 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/11 13:42:03 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/11 16:33:32 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_vector	*ft_mapsize(t_vector **map)
 	float		y_min;
 
 	if (!map)
+		return (0);
+	if (!map[0])
 		return (0);
 	size = ft_vectornew(map[0]->x, map[0]->y, map[0]->z);
 	while (*map)
@@ -91,18 +93,20 @@ void	ft_draw_map(t_window *window)
 	mlx_clear_window(window->mlx, window->win);
 	while (window->map[i])
 	{
+		printf("%f\n", window->gradient * window->map[i]->height);
 		mlx_pixel_put(window->mlx, window->win,
 			window->map[i]->x + xhalf,
 			window->map[i]->y + yhalf,
-			WHITE);
-		if (i >= (int)window->size->x)
-			ft_drawline(window,
-				window->map[i],
-				window->map[i - (int)window->size->x]);
-		if (i % (int)window->size->x)
-			ft_drawline(window,
-				window->map[i],
-				window->map[i - 1]);
+			WHITE >> (int)(window->map[i]->height * window->gradient));
+		// Trying coloring by bitshifting white.
+		// if (i >= (int)window->size->x)
+		// 	ft_drawline(window,
+		// 		window->map[i],
+		// 		window->map[i - (int)window->size->x]);
+		// if (i % (int)window->size->x)
+		// 	ft_drawline(window,
+		// 		window->map[i],
+		// 		window->map[i - 1]);
 		i++;
 	}
 }

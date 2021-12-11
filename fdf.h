@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/11 14:27:45 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/11 16:26:58 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@
 # define DISPLAY_Y 720
 
 # define WHITE 	0x00FFFFFF
-# define RED 	0x00FF0000
-# define GREEN 	0x0000FF00
-# define BLUE 	0x000000FF
+# define BLUE	0x000000FF
 
 # define ESC 53
 
@@ -55,7 +53,7 @@ typedef struct s_window
 
 	t_vector	**map;
 	t_vector	*size;
-	int			gradient;
+	float		gradient;
 
 	int			mouse;
 	int			x;
