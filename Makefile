@@ -6,18 +6,20 @@ SRC = 	main.c			\
 		vector.c		\
 		matrix.c		\
 		map.c 			\
-		line.c
+		line.c			\
+		hooks.c
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-FILE = test
+FILE = 42
 
 all: $(NAME)
 	./$(NAME) maps/$(FILE).fdf
 	@rm -f $(NAME)
+	@rm -rf $(NAME).dSYM
 
 $(NAME): $(SRC) $(LIBFT) $(MLX)
-	gcc $(FLAGS) -o $(NAME) $(SRC) $(LIBFT) $(MLX) -framework OpenGL -framework AppKit 
+	gcc $(FLAGS) -o $(NAME) $(SRC) $(LIBFT) $(MLX) -framework OpenGL -framework AppKit -g -fsanitize=address
 
 $(LIBFT):
 	make -C libft

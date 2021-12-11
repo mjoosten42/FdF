@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:36:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/08 15:09:33 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/11 13:43:21 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_vector	*ft_vectornew(float x, float y, float z)
 
 	vector = malloc(sizeof(*vector));
 	if (!vector)
-		ft_error();
+		return (0);
 	vector->x = x;
 	vector->y = y;
 	vector->z = z;
@@ -45,22 +45,29 @@ void	ft_vectorsubtract(t_vector *vector, t_vector *move)
 
 void	ft_vectormultiply(t_vector *vector, t_vector **matrix)
 {
+	float	x;
+	float	y;
+	float	z;
+
 	if (!vector || !matrix)
 		return ;
 	if (!matrix[0] || !matrix[1] || !matrix[2])
 		return ;
-	vector->x
+	x
 		= vector->x * matrix[0]->x
 		+ vector->y * matrix[0]->y
 		+ vector->z * matrix[0]->z;
-	vector->y
+	y
 		= vector->x * matrix[1]->x
 		+ vector->y * matrix[1]->y
 		+ vector->z * matrix[1]->z;
-	vector->z
+	z
 		= vector->x * matrix[2]->x
 		+ vector->y * matrix[2]->y
 		+ vector->z * matrix[2]->z;
+	vector->x = x;
+	vector->y = y;
+	vector->z = z;
 }
 
 float	ft_vectornormal(t_vector *vector)
@@ -68,6 +75,8 @@ float	ft_vectornormal(t_vector *vector)
 	t_vector	**scale_matrix;
 	float		length;
 
+	if (!vector)
+		return (0);
 	length = sqrt(pow(vector->x, 2) + pow(vector->y, 2));
 	scale_matrix = ft_matrix_scale_new(1.f / length);
 	if (!scale_matrix)

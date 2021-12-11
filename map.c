@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 14:25:22 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/08 15:13:57 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/11 13:42:03 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,4 @@ void	ft_draw_map(t_window *window)
 				window->map[i - 1]);
 		i++;
 	}
-	ft_drawline(window, window->map[1], window->map[2]);
-	ft_drawline(window, window->map[0], window->map[3]);
 }

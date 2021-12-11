@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/08 14:58:00 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/11 14:27:45 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft/libft.h"
 # include "minilibx/mlx.h"
+# include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
 
@@ -97,7 +98,7 @@ int			ft_key_hook(int keycode, t_window *window);
 int			ft_motion(int x, int y, t_window *window);
 int			ft_release(int button, int x, int y, t_window *window);
 
-void		ft_error(void);
+void		ft_error(char *str);
 int			ft_close(t_window *window);
 
 #endif

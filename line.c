@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:43:03 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/07 12:03:12 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/11 13:46:37 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_drawline(t_window *window, t_vector *first, t_vector *second)
 	t_vector	*b;
 	int			length;
 
+	if (!(window && first && second))
+		return ;
 	a = ft_vectornew(first->x, first->y, 0);
 	b = ft_vectornew(second->x, second->y, 0);
 	if (!a || !b || (first->x == second->x && first->y == second->y))
@@ -28,6 +30,8 @@ void	ft_drawline(t_window *window, t_vector *first, t_vector *second)
 	}
 	ft_vectorsubtract(b, a);
 	length = (int)ft_vectornormal(b);
+	if (!length)
+		return ;
 	while (length--)
 	{
 		ft_vectoradd(a, b);
