@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 13:56:09 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/11 13:59:50 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/13 11:28:20 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_motion(int x, int y, t_window *window)
 	{
 		if (x != window->x)
 		{
-			ft_rotate_map(window->map, 'y', sensitivity * (x - window->x));
+			ft_rotate_map(window->map, 'y', sensitivity * (window->x - x));
 			ft_draw_map(window);
 		}
 		if (y != window->y)
@@ -73,5 +73,6 @@ int	ft_key_hook(int keycode, t_window *window)
 int	ft_close(t_window *window)
 {
 	mlx_destroy_window(window->mlx, window->win);
+	ft_free_array((void **)window->map);
 	exit(EXIT_SUCCESS);
 }

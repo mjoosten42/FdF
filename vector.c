@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:36:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/11 13:43:21 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/13 13:23:48 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,26 @@ void	ft_vectormultiply(t_vector *vector, t_vector **matrix)
 	vector->z = z;
 }
 
-float	ft_vectornormal(t_vector *vector)
+t_vector	*ft_vectornormal(t_vector *first, t_vector *second)
 {
 	t_vector	**scale_matrix;
+	t_vector	*normal;
 	float		length;
 
-	if (!vector)
+	if (!first || !second)
 		return (0);
-	length = sqrt(pow(vector->x, 2) + pow(vector->y, 2));
+	normal = ft_vectornew(second->x, second->y, 0);
+	if (!normal)
+		ft_error(0);
+	ft_vectorsubtract(normal, first);
+	length = sqrt(pow(normal->x, 2) + pow(normal->y, 2));
+	if (!length)
+		return (0);
 	scale_matrix = ft_matrix_scale_new(1.f / length);
 	if (!scale_matrix)
 		return (0);
-	ft_vectormultiply(vector, scale_matrix);
+	ft_vectormultiply(normal, scale_matrix);
+	normal->z = length;
 	ft_free_array((void **)scale_matrix);
-	return (length);
+	return (normal);
 }

@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:56:42 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/11 16:26:58 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/13 13:16:29 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_vector
 	float	y;
 	float	z;
 
-	int		height;
+	int		color;
 }			t_vector;
 
 typedef struct s_window
@@ -70,12 +70,13 @@ int			ft_get_width(char *file);
 int			ft_get_height(char *file);
 int			ft_fill_map(t_vector **map, char *file);
 int			ft_fill_row(t_vector **map, char *str, int j);
+void		ft_color(t_vector **map, float gradient, int y_min);
 
 t_vector	*ft_vectornew(float x, float y, float z);
 void		ft_vectoradd(t_vector *vector, t_vector *move);
 void		ft_vectorsubtract(t_vector *vector, t_vector *move);
 void		ft_vectormultiply(t_vector *vector, t_vector **matrix);
-float		ft_vectornormal(t_vector *vector);
+t_vector	*ft_vectornormal(t_vector *first, t_vector *second);
 
 t_vector	**ft_matrix_scale_new(float scale);
 t_vector	**ft_matrix_rotate_new(char c, float angle);

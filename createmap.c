@@ -88,7 +88,7 @@ int	ft_fill_map(t_vector **map, char *file)
 		map += ft_fill_row(map, str, j);
 		free(str);
 		str = ft_get_next_line(fd);
-		j++;
+		j--;
 	}
 	close(fd);
 	return (0);
@@ -105,10 +105,9 @@ int	ft_fill_row(t_vector **map, char *str, int j)
 	i = 0;
 	while (strs[i])
 	{
-		map[i] = ft_vectornew(i, -ft_atoi(strs[i]), j);
+		map[i] = ft_vectornew(i, ft_atoi(strs[i]), j);
 		if (!map[i])
 			ft_error(0);
-		map[i]->height = -map[i]->y;
 		i++;
 	}
 	ft_free_array((void **)strs);

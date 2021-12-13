@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/11 15:35:31 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/13 11:02:37 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	window = ft_create_window(argv[1]);
 	ft_center_map(window->map, window->size);
 	ft_scale_map(window->map, ft_get_scale(window));
-	ft_rotate_map(window->map, 'y', -45);
+	ft_rotate_map(window->map, 'y', 45);
 	ft_rotate_map(window->map, 'x', -45);
 	window->size->x++;
 	ft_draw_map(window);

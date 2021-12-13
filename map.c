@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 14:25:22 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/11 16:33:32 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/13 11:30:14 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,27 @@
 t_vector	*ft_mapsize(t_vector **map)
 {
 	t_vector	*size;
-	float		y_min;
 
 	if (!map)
 		return (0);
 	if (!map[0])
 		return (0);
 	size = ft_vectornew(map[0]->x, map[0]->y, map[0]->z);
+	size->color = map[0]->y;
 	while (*map)
 	{
 		if ((*map)->x > size->x)
 			size->x = (*map)->x;
 		if ((*map)->y > size->y)
 			size->y = (*map)->y;
-		if ((*map)->y < y_min)
-			y_min = (*map)->y;
-		if ((*map)->z > size->z)
+		if ((*map)->y < size->color)
+			size->color = (*map)->y;
+		if ((*map)->z < size->z)
 			size->z = (*map)->z;
 		map++;
 	}
-	size->y = size->y - y_min;
-	size->height = y_min;
+	size->y = size->y - size->color;
+	size->z = -size->z;
 	return (size);
 }
 
@@ -51,8 +51,8 @@ void	ft_center_map(t_vector **map, t_vector *size)
 	while (*map)
 	{
 		(*map)->x -= x;
-		(*map)->y += y;
-		(*map)->z -= z;
+		(*map)->y -= y;
+		(*map)->z += z;
 		map++;
 	}
 }
@@ -87,26 +87,24 @@ void	ft_draw_map(t_window *window)
 	float	yhalf;
 	int		i;
 
+	i = 0;
 	xhalf = 0.5f * DISPLAY_X;
 	yhalf = 0.5f * DISPLAY_Y;
-	i = 0;
 	mlx_clear_window(window->mlx, window->win);
 	while (window->map[i])
 	{
-		printf("%f\n", window->gradient * window->map[i]->height);
 		mlx_pixel_put(window->mlx, window->win,
 			window->map[i]->x + xhalf,
-			window->map[i]->y + yhalf,
-			WHITE >> (int)(window->map[i]->height * window->gradient));
-		// Trying coloring by bitshifting white.
-		// if (i >= (int)window->size->x)
-		// 	ft_drawline(window,
-		// 		window->map[i],
-		// 		window->map[i - (int)window->size->x]);
-		// if (i % (int)window->size->x)
-		// 	ft_drawline(window,
-		// 		window->map[i],
-		// 		window->map[i - 1]);
+			-window->map[i]->y + yhalf,
+			window->map[i]->color);
+		if (i >= (int)window->size->x)
+			ft_drawline(window,
+				window->map[i],
+				window->map[i - (int)window->size->x]);
+		if (i % (int)window->size->x)
+			ft_drawline(window,
+				window->map[i],
+				window->map[i - 1]);
 		i++;
 	}
 }

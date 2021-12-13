@@ -11,12 +11,11 @@ SRC = 	main.c			\
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-FILE = julia
+FILE = mars
 
 all: $(NAME)
 	./$(NAME) maps/$(FILE).fdf
 	@rm -f $(NAME)
-	@rm -rf $(NAME).dSYM
 
 $(NAME): $(SRC) $(LIBFT) $(MLX)
 	gcc $(FLAGS) -o $(NAME) $(SRC) $(LIBFT) $(MLX) -framework OpenGL -framework AppKit
