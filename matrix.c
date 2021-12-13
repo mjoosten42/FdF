@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:15:17 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/11 13:40:16 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:29:52 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,11 @@ t_vector	**ft_matrix_scale_new(float scale)
 
 	scale_matrix = malloc(sizeof(*scale_matrix) * 4);
 	if (!scale_matrix)
-		return (0);
+		ft_error(0);
 	scale_matrix[0] = ft_vectornew(scale, 0, 0);
 	scale_matrix[1] = ft_vectornew(0, scale, 0);
 	scale_matrix[2] = ft_vectornew(0, 0, scale);
 	scale_matrix[3] = 0;
-	if (!(scale_matrix[0] && scale_matrix[1] && scale_matrix[2]))
-	{
-		free(scale_matrix[0]);
-		free(scale_matrix[1]);
-		free(scale_matrix[2]);
-		return (0);
-	}
 	return (scale_matrix);
 }
 
@@ -53,15 +46,8 @@ t_vector	**ft_matrix_rotate_new(char c, float angle)
 
 	rotate_matrix = malloc(sizeof(*rotate_matrix) * 4);
 	if (!rotate_matrix)
-		return (0);
+		ft_error(0);
 	ft_fill_rotate_matrix(rotate_matrix, c, angle * M_PI / 180);
-	if (!(rotate_matrix[0] && rotate_matrix[1] && rotate_matrix[2]))
-	{
-		free(rotate_matrix[0]);
-		free(rotate_matrix[1]);
-		free(rotate_matrix[2]);
-		return (0);
-	}
 	return (rotate_matrix);
 }
 

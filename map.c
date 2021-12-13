@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 14:25:22 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/13 11:30:14 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:42:25 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,21 @@ t_vector	*ft_mapsize(t_vector **map)
 {
 	t_vector	*size;
 
-	if (!map)
-		return (0);
-	if (!map[0])
-		return (0);
 	size = ft_vectornew(map[0]->x, map[0]->y, map[0]->z);
-	size->color = map[0]->y;
+	size->height = map[0]->y;
 	while (*map)
 	{
 		if ((*map)->x > size->x)
 			size->x = (*map)->x;
 		if ((*map)->y > size->y)
 			size->y = (*map)->y;
-		if ((*map)->y < size->color)
-			size->color = (*map)->y;
+		if ((*map)->y < size->height)
+			size->height = (*map)->y;
 		if ((*map)->z < size->z)
 			size->z = (*map)->z;
 		map++;
 	}
-	size->y = size->y - size->color;
+	size->y = size->y - size->height;
 	size->z = -size->z;
 	return (size);
 }
@@ -51,7 +47,7 @@ void	ft_center_map(t_vector **map, t_vector *size)
 	while (*map)
 	{
 		(*map)->x -= x;
-		(*map)->y -= y;
+		(*map)->y -= y + size->height;
 		(*map)->z += z;
 		map++;
 	}
@@ -62,8 +58,6 @@ void	ft_scale_map(t_vector **map, float scale)
 	t_vector	**scale_matrix;
 
 	scale_matrix = ft_matrix_scale_new(scale);
-	if (!scale_matrix)
-		return ;
 	while (*map)
 		ft_vectormultiply(*map++, scale_matrix);
 	ft_free_array((void **)scale_matrix);
@@ -74,8 +68,6 @@ void	ft_rotate_map(t_vector **map, char c, float angle)
 	t_vector	**rotate_matrix;
 
 	rotate_matrix = ft_matrix_rotate_new(c, angle);
-	if (!rotate_matrix)
-		return ;
 	while (*map)
 		ft_vectormultiply(*map++, rotate_matrix);
 	ft_free_array((void **)rotate_matrix);
@@ -96,7 +88,8 @@ void	ft_draw_map(t_window *window)
 		mlx_pixel_put(window->mlx, window->win,
 			window->map[i]->x + xhalf,
 			-window->map[i]->y + yhalf,
-			window->map[i]->color);
+			BLUE << (int)(window->gradient
+				* (window->map[i]->height - window->size->height)));
 		if (i >= (int)window->size->x)
 			ft_drawline(window,
 				window->map[i],

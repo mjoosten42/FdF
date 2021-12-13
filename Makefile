@@ -8,16 +8,13 @@ SRC = 	main.c			\
 		map.c 			\
 		line.c			\
 		hooks.c
+HEADER = fdf.h
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-FILE = mars
-
 all: $(NAME)
-	./$(NAME) maps/$(FILE).fdf
-	@rm -f $(NAME)
 
-$(NAME): $(SRC) $(LIBFT) $(MLX)
+$(NAME): $(SRC) $(LIBFT) $(MLX) $(HEADER)
 	gcc $(FLAGS) -o $(NAME) $(SRC) $(LIBFT) $(MLX) -framework OpenGL -framework AppKit
 
 $(LIBFT):

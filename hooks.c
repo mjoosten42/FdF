@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 13:56:09 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/13 11:28:20 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:20:21 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_motion(int x, int y, t_window *window)
 {
 	float	sensitivity;
 
-	sensitivity = 0.3f;
+	sensitivity = 0.25f;
 	if (window->mouse)
 	{
 		if (x != window->x)
@@ -68,11 +68,4 @@ int	ft_key_hook(int keycode, t_window *window)
 	if (keycode == ESC)
 		ft_close(window);
 	return (0);
-}
-
-int	ft_close(t_window *window)
-{
-	mlx_destroy_window(window->mlx, window->win);
-	ft_free_array((void **)window->map);
-	exit(EXIT_SUCCESS);
 }

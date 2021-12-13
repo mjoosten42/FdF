@@ -23,8 +23,8 @@ t_vector	**ft_create_map(char *file)
 	map = malloc(sizeof(*map) * (width * height + 1));
 	if (!map)
 		ft_error(0);
-	map[width * height] = 0;
 	ft_fill_map(map, file);
+	map[width * height] = 0;
 	return (map);
 }
 
@@ -86,9 +86,9 @@ int	ft_fill_map(t_vector **map, char *file)
 	while (str)
 	{
 		map += ft_fill_row(map, str, j);
+		j--;
 		free(str);
 		str = ft_get_next_line(fd);
-		j--;
 	}
 	close(fd);
 	return (0);
@@ -101,13 +101,12 @@ int	ft_fill_row(t_vector **map, char *str, int j)
 
 	strs = ft_split(str, ' ');
 	if (!strs)
-		return (0);
+		ft_error(0);
 	i = 0;
 	while (strs[i])
 	{
 		map[i] = ft_vectornew(i, ft_atoi(strs[i]), j);
-		if (!map[i])
-			ft_error(0);
+		map[i]->height = map[i]->y;
 		i++;
 	}
 	ft_free_array((void **)strs);
