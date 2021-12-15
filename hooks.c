@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 13:56:09 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/13 15:20:21 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/15 12:14:02 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,16 @@ int	ft_mouse_hook(int button, int x, int y, t_window *window)
 
 int	ft_motion(int x, int y, t_window *window)
 {
-	float	sensitivity;
-
-	sensitivity = 0.25f;
 	if (window->mouse)
 	{
 		if (x != window->x)
 		{
-			ft_rotate_map(window->map, 'y', sensitivity * (window->x - x));
+			ft_rotate_map(window->map, 'y', SENSITIVITY * (window->x - x));
 			ft_draw_map(window);
 		}
 		if (y != window->y)
 		{
-			ft_rotate_map(window->map, 'x', sensitivity * (window->y - y));
+			ft_rotate_map(window->map, 'x', SENSITIVITY * (window->y - y));
 			ft_draw_map(window);
 		}
 	}
