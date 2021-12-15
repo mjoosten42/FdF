@@ -1,5 +1,5 @@
 NAME = fdf
-FLAGS = -Wall -Werror -Wextra -Ofast
+FLAGS = -Wall -Werror -Wextra
 SRC = 	main.c			\
 		window.c 		\
 		createmap.c		\
@@ -10,12 +10,11 @@ SRC = 	main.c			\
 		hooks.c			\
 		image.c
 OBJ = $(SRC:.c=.o)
-HEADER = fdf.h
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
 all: $(NAME)
-$(NAME): $(OBJ) $(LIBFT) $(MLX) $(HEADER)
+$(NAME):$(LIBFT) $(MLX) fdf.h $(OBJ)
 	gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(MLX) -framework OpenGL -framework AppKit
 
 $(LIBFT):
