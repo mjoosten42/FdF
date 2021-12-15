@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                           :+:      :+:    :+:   */
+/*   createmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 10:59:06 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/11/29 12:08:45 by mjoosten         ###   ########.fr       */
+/*   Created: 2021/12/15 14:55:30 by mjoosten          #+#    #+#             */
+/*   Updated: 2021/12/15 15:08:27 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_get_width(char *file)
 	if (!strs)
 		ft_error(0);
 	i = 0;
-	while (strs[i])
+	while (strs[i] && *strs[i] != '\n')
 		i++;
 	ft_free_array((void **)strs);
 	free(str);
@@ -103,7 +103,7 @@ int	ft_fill_row(t_vector **map, char *str, int j)
 	if (!strs)
 		ft_error(0);
 	i = 0;
-	while (strs[i])
+	while (strs[i] && *strs[i] != '\n')
 	{
 		map[i] = ft_vectornew(i, ft_atoi(strs[i]), j);
 		map[i]->height = map[i]->y;

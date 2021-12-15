@@ -13,12 +13,7 @@ HEADER = fdf.h
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-FILE = mars
-
 all: $(NAME)
-	./$(NAME) maps/$(FILE).fdf
-	@rm -f $(NAME)
-
 $(NAME): $(SRC) $(LIBFT) $(MLX) $(HEADER)
 	gcc $(FLAGS) -o $(NAME) $(SRC) $(LIBFT) $(MLX) -framework OpenGL -framework AppKit
 
@@ -37,4 +32,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY = clean, fclean, re
+.PHONY = clean fclean re

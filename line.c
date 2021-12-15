@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:43:03 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/15 13:24:48 by mjoosten         ###   ########.fr       */
+/*   Updated: 2021/12/15 14:56:55 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_drawline(t_window *window, t_vector *first, t_vector *second)
 	while ((int)normal->z--)
 	{
 		ft_pixel_put(window, vector->x, -vector->y + yhalf,
-			BLUE << (int)(0.5f + window->gradient * vector->height));
+			BLUE << (int)(window->gradient * vector->height));
 		ft_vectoradd(vector, normal);
 		vector->height += normal->height;
 	}
