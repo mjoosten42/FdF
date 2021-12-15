@@ -9,13 +9,14 @@ SRC = 	main.c			\
 		line.c			\
 		hooks.c			\
 		image.c
+OBJ = $(SRC:.c=.o)
 HEADER = fdf.h
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
 all: $(NAME)
-$(NAME): $(SRC) $(LIBFT) $(MLX) $(HEADER)
-	gcc $(FLAGS) -o $(NAME) $(SRC) $(LIBFT) $(MLX) -framework OpenGL -framework AppKit
+$(NAME): $(OBJ) $(LIBFT) $(MLX) $(HEADER)
+	gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(MLX) -framework OpenGL -framework AppKit
 
 $(LIBFT):
 	make -C libft
@@ -23,9 +24,13 @@ $(LIBFT):
 $(MLX):
 	make -C minilibx
 
+%.o:%.c
+	gcc $(FLAGS) -c $^
+
 clean:
-	make fclean -C libft
 	make clean -C minilibx
+	make fclean -C libft
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
