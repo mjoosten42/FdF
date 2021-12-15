@@ -61,10 +61,10 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	ar -crs $@ $^
 
 %.o : %.c
 	$(CC) $(FLAGS) $^
-	ar -crs $(NAME) $@
 
 clean:
 	rm -f $(OBJ) $(BONUS_OBJ)
