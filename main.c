@@ -6,7 +6,7 @@
 /*   By: mjoosten <mjoosten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 12:01:25 by mjoosten          #+#    #+#             */
-/*   Updated: 2021/12/15 14:48:24 by mjoosten         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:49:07 by mjoosten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,4 @@ int	ft_error(char *str)
 	else
 		perror(0);
 	exit(EXIT_FAILURE);
-}
-
-void	printvector(t_vector *vector)
-{
-	printf("x: %f, y: %f, z: %f\n", vector->x, vector->y, vector->z);
 }
